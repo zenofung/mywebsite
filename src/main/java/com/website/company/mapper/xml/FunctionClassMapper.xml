@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.website.company.mapper.FunctionClassMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.website.company.entity.FunctionClass">
+        <id column="id" property="id"/>
+        <result column="create_datetime" property="createDatetime"/>
+        <result column="update_datetime" property="updateDatetime"/>
+        <result column="description" property="description"/>
+        <result column="function_class_name" property="functionClassName"/>
+        <result column="english_name" property="englishName"/>
+        <result column="pic" property="pic"/>
+        <result column="mobile_pic" property="mobilePic"/>
+        <result column="icon" property="icon"/>
+        <result column="product_name" property="productName"/>
+        <result column="class_code" property="classCode"/>
+        <result column="icon_pc" property="iconPc"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, create_datetime, update_datetime, description, function_class_name,english_name, parent_id,
+        pic,product_name,class_code,icon,icon_pc
+    </sql>
+
+    <select id="showMoreFunction" resultMap="BaseResultMap">
+        select f.* from function_class f where f.class_code=#{classCode} order by f.update_datetime desc limit
+        #{from},#{to};
+
+    </select>
+</mapper>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.website.company.mapper.NewsMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.website.company.entity.News">
+        <id column="id" property="id"/>
+        <result column="create_datetime" property="createDatetime"/>
+        <result column="update_datetime" property="updateDatetime"/>
+        <result column="content" property="content"/>
+        <result column="description" property="description"/>
+        <result column="keywords" property="keywords"/>
+        <result column="news_class_id" property="newsClassId"/>
+        <result column="news_title" property="newsTitle"/>
+        <result column="author" property="author"/>
+        <result column="url" property="url"/>
+        <result column="visit_num" property="visitNum"/>
+        <result column="pic" property="pic"/>
+        <result column="mobile_pic" property="mobilePic"/>
+        <result column="top" property="top"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, create_datetime, update_datetime, content, description, keywords, news_class_id, news_title, url,mobile_pic,
+        author,visit_num,pic,top
+    </sql>
+
+    <select id="getNewsCount" resultType="java.lang.Integer">
+        select count(1) from news
+        <where>
+            <if test="searchDTO.newsClassId != null">
+                news_class_id = #{searchDTO.newsClassId}
+            </if>
+            <if test="searchDTO.condition != null and searchDTO.condition != ''">
+                and news_title like '%${searchDTO.condition}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="getNewsLists" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from news
+        <where>
+            <if test="searchDTO.newsClassId != null">
+                news_class_id = #{searchDTO.newsClassId}
+            </if>
+            <if test="searchDTO.condition != null and searchDTO.condition != ''">
+                and news_title like '%${searchDTO.condition}%'
+            </if>
+        </where>
+        order by top desc,update_datetime DESC
+        Limit ${searchDTO.getPage()},${searchDTO.getRows}
+    </select>
+
+    <select id="getNewsleftList" resultMap="BaseResultMap">
+        select
+        n.id,n.news_title
+        from news n  order by n.top desc, n.update_datetime desc limit 6 ;
+    </select>
+    <select id="getNewsList" resultMap="BaseResultMap">
+        select
+        n.id,n.news_title,n.description
+        from news n where n.news_class_id = #{classId} order by n.update_datetime desc limit 7
+    </select>
+    <select id="getNewsByClassId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        n.news_title,n.id,n.description,n.pic,n.top,n.update_datetime,n.visit_num,n.author
+        from news n where n.news_class_id=#{classId} order by n.top desc,n.update_datetime desc limit #{num};
+    </select>
+
+    <select id="getByKeyword" resultMap="BaseResultMap">
+        select n.* from news n where n.news_title like "%${keyword}%" or n.keywords like "%${keyword}%" or n.content
+        like "%${keyword}%" order by n.news_title like "%${keyword}%" desc ;
+    </select>
+
+    <select id="selectCountByKeyWord" resultType="java.lang.Integer">
+        select count(1) from news n
+        where n.news_title like "%${keyword}%" or n.keywords like "%${keyword}%" or n.content like "%${keyword}%"
+    </select>
+
+
+    <select id="getByKeywordPage" resultMap="BaseResultMap">
+        select
+        n.id,n.news_title,n.description,n.update_datetime,n.author,n.pic
+        from news n
+        where n.news_title like "%${keyword}%" or n.keywords like "%${keyword}%" or n.content
+        like "%${keyword}%"
+        order by n.news_title like "%${keyword}%" desc
+        limit ${pages},${rows};
+    </select>
+
+    <select id="getNewslist" resultMap="BaseResultMap">
+        select
+        n.*
+        from news n
+        order by n.top desc, n.update_datetime desc limit #{num};
+    </select>
+
+    <select id="getNextNews" resultMap="BaseResultMap">
+        select n.id,n.news_title
+        from news n where n.news_class_id=${news.newsClassId} and ${news.id} > n.id order by n.id desc limit
+        1;
+    </select>
+
+    <select id="getPreNews" resultMap="BaseResultMap">
+        select
+        n.id,n.news_title
+        from news n where n.news_class_id=${news.newsClassId} and n.id > ${news.id} order by n.id asc limit
+        1;
+    </select>
+
+    <select id="getNextNewsAll" resultMap="BaseResultMap">
+        select n.* from news n where ${news.updateDatetime} > n.update_datetime order by n.top desc , n.update_datetime
+        desc limit 1;
+    </select>
+
+    <select id="getPreNewsAll" resultMap="BaseResultMap">
+        select n.* from news n where n.update_datetime > ${news.updateDatetime} order by n.top desc ,n.update_datetime
+        asc limit 1;
+    </select>
+
+    <select id="selectNewsById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from news where id=#{newsId};
+    </select>
+
+    <select id="pageList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from news n order by n.top desc ,n.update_datetime desc limit ${pages},${rows};
+    </select>
+
+    <select id="pageListByClassId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from news n where n.news_class_id = ${classId} order by n.top desc ,n.update_datetime desc limit
+        ${pages},${rows};
+    </select>
+
+    <select id="newsvoListNotInNewsId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from news n
+        where n.id != ${newsId} and
+        <foreach collection="keywordss" item="keyword" open="(" close=")" separator="or">
+            n.keywords   like "%${keyword}%"
+        </foreach>
+          order by n.update_datetime desc limit 15;
+    </select>
+
+    <select id="rssNewsAll" resultMap="BaseResultMap">
+        select
+        n.id,n.news_title,n.author ,n.create_datetime,n.update_datetime
+        from news n
+        order by n.update_datetime desc ;
+    </select>
+
+
+</mapper>

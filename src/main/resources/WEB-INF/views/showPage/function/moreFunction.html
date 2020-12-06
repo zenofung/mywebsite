@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>核心功能_重庆恭逸科技有限公司</title>
+    <meta name=”Keywords” content=”体脂检测智能马桶，尿检智能马桶盖，便检智能马桶座便器”/>
+    <meta name="Description" content="本页为您详细介绍恭逸智能马桶，智能马桶盖, 智能座便器的功能。包括体脂检测、智能清洗、尿检、便检、按摩、烘干等，了解更多功能,请点击访问"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content=""/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!-- bootstrap-css -->
+    <link href="${ctxPath}/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
+    <!--// bootstrap-css -->
+    <link rel="icon" type="image/x-icon" href="${ctxPath}/static/faviconTitle.ico"/>
+    <!-- css -->
+    <link rel="stylesheet" href="${ctxPath}/static/css/style.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="${ctxPath}/static/css/zcp.css" type="text/css" media="all"/>
+    <link href="${ctxPath}/static/css/zhyd.comment.css" rel="stylesheet">
+    <link href="${ctxPath}/static/css/zhyd.core.css" rel="stylesheet">
+    <!--// css -->
+    <!-- font-awesome icons -->
+    <link href="${ctxPath}/static/css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <script src="${ctxPath}/static/js/jquery-1.11.1.min.js"></script>
+    <script src="${ctxPath}/static/js/bootstrap.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
+            });
+        });
+    </script>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+@include("../_header.html",{current:'功能分类'}){}
+<div class="banner-top visible-lg-block visible-md-block"
+     style="height: 570px;background: url('/static/images/mobile/fuctionclass/banner.jpg') no-repeat 0 0;background-size: cover ">
+</div>
+<div class="banner-top visible-xs-block visible-sm-block"
+     style="height: 300px;background: url('/static/images/mobile/function/banner.jpg') no-repeat 0;background-size: cover ">
+</div>
+<div class="container-fluid " style="background-color: #E5E5E5;padding: 0">
+    <div class="container ">
+        @for(function in functionClassList.result){
+        <div style="margin: 20px 0px">
+            <div style="">
+                <span class="mobile-title1">EXAMINAIION</span>
+                <span class="mobile-title2">${function.functionClassName}</span>
+            </div>
+            <div class="mobile-function-description">
+                ${function.description}
+            </div>
+            <div class="mobile-function-img"
+                 style="background: url(${function.icon})no-repeat 0 0;background-size: 100%;padding-top: 30%">
+            </div>
+        </div>
+        @}
+        <div id="more">
+            <div id="button"
+                 style="cursor: pointer;background-color: white;height: 30px; line-height: 32px;width: 30%;margin: 30px auto;padding: 0px 5px;">
+                <span class="mobile-btn-span">显示更多</span>
+                <img class="mobile-btn-img" src="${ctxPath}/static/images/mobile/icon/显示更多.png"/>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- footer -->
+@include("../_footer.html"){}
+<!-- //footer -->
+<script>
+    $("#button").click(function () {
+        var param = {};
+        $.ajax({
+            url: "/functionShowMoreAjax",
+            type: "post",
+            data: JSON.stringify(param),
+            contentType: "application/json;charset=UTF-8",
+            dataType: 'JSON',
+            success: function (data) {
+                var functionClass = data;
+                for (var i = 0; i < functionClass.length; i++) {
+                    $("#more").before('<div style="margin: 20px 0px">\n' +
+                        '                <div  style="">\n' +
+                        '                    <span class="mobile-title1">EXAMINAIION</span>\n' +
+                        '                    <span class="mobile-title2">' + functionClass[i].functionClassName + '</span>\n' +
+                        '                </div>\n' +
+                        '                <div class="mobile-function-description" >\n' +
+                        functionClass[i].description +
+                        '                </div>\n' +
+                        '                <div class="mobile-function-img" style="background: url(' + functionClass[i].icon + ')no-repeat 0 0;background-size: 100%;padding-top: 30%" >\n' +
+                        '                </div>\n' +
+                        '            </div>')
+                }
+                $("#more").css("display", "none");
+            }
+        });
+    })
+</script>
+<script src="${ctxPath}/static/js/responsiveslides.min.js"></script>
+<script type="text/javascript" src="${ctxPath}/static/js/move-top.js"></script>
+<script type="text/javascript" src="${ctxPath}/static/js/easing.js"></script>
+<script type="text/javascript" src="${ctxPath}/static/js/scroller-menu.js"></script>
+</body>
+</html>

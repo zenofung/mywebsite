@@ -1,0 +1,46 @@
+<!-- pc/功能分类 -->
+<div class="markets visible-lg-block visible-md-block" id="markets"
+     style='background: url("${ctxPath}/static/images/pc/首页/功能分类.jpg") no-repeat 0px 0px;background-size:cover;padding: 0;height: 600px'>
+    <div class="container">
+        <div class="wthree-heading" style="margin-top: 50px">
+            <span style="font-size: 40px;color: #ffffff;display: block">功能分类</span>
+            <span style="font-size: 20px;color: #ffffff;display: block">FUNCTION</span>
+        </div>
+        <div class="markets-grids" style="margin-top: 30px">
+            @for(item in @functions.getResult()){
+            <div class="w3ls-markets-grid">
+                <img src="${item.pic}" alt="${item.functionClassName}" width="150px">
+            </div>
+            @}
+        </div>
+    </div>
+</div>
+<!-- //pc/功能分类 -->
+
+<!--mobile -->
+<div class="markets container visible-xs-block visible-sm-block"
+     style="background: url('${ctxPath}/static/images/mobile/home/function/背景.jpg')no-repeat 0 0;background-size:cover;padding-top: 20px;position:relative;">
+    <div class="container">
+        <div style="margin-top: 10px">
+            <span class="mobile-title1">APP-站式检测身体健康指标</span>
+            <span class="mobile-title2">核心功能&ensp;&ensp;我们矢志不渝的目标是让您享受完美</span>
+        </div>
+        <div class="container">
+            <!--这里直接循环遍历-->
+            @for(item in @functions.getResult()){
+            @if(itemLP.index==5){
+            <div class="col-xs-4" style="padding: 5px">
+                <a id="function-more" href="/functionMoblie">
+                    <img style="width: 100%" src="${ctxPath}/static/images/mobile/home/function/more.png">
+                </a>
+            </div>
+            @}else if(itemLP.index<10){
+            <div class="col-xs-4" style="padding: 5px">
+                <img style="width: 100%" src="${item.iconPc}">
+            </div>
+            @}
+            @}
+        </div>
+    </div>
+</div>
+<!--//mobile -->

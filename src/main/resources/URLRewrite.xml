@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://tuckey.org/res/dtds/urlrewrite4.0.dtd">
+<urlrewrite>
+    <!-- /xxx.html 转/xxx -->
+    <rule>
+        <from>^/(\w+).html$</from>
+        <to type="forward">/$1</to>
+    </rule>
+    <!--产品路由-->
+    <rule>
+        <from>^/product/list/(\w+).html$</from>
+        <to type="forward">/product/list?className=$1</to>
+    </rule>
+    <rule>
+        <from>^/product/detail/(\w+).html$</from>
+        <to type="forward">/product/detail/$1</to>
+    </rule>
+    <!--功能分类路由-->
+    <rule>
+        <from>^/function/(\d*).html$</from>
+        <to type="forward">/function/ClassList?functionClassId=$1</to>
+    </rule>
+    <!--新闻-->
+    <rule>
+        <from>^/newsListPage/(\d*).html$</from>
+        <to type="forward">/newsListPage?classId=$1</to>
+    </rule>
+    <rule>
+        <from>^/newsDetail/newsId(\d+).html$</from>
+        <to type="forward">/newsDetail?newsId=$1</to>
+    </rule>
+    <!--搜索-->
+    <rule>
+        <from>^/search/keywords/([\u4E00-\u9FA5]+).html$</from>
+        <to type="forward">/search?keywords=$1</to>
+    </rule>
+</urlrewrite>

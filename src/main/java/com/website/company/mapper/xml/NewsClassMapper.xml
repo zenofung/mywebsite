@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.website.company.mapper.NewsClassMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.website.company.entity.NewsClass">
+        <id column="id" property="id"/>
+        <result column="create_datetime" property="createDatetime"/>
+        <result column="update_datetime" property="updateDatetime"/>
+        <result column="description" property="description"/>
+        <result column="keywords" property="keywords"/>
+        <result column="news_class_name" property="newsClassName"/>
+        <result column="mobile_pic" property="mobilePic"/>
+        <result column="pic" property="pic"/>
+        <result column="banner_pic" property="bannerPic"/>
+        <result column="mobile_banner_pic" property="mobileBannerPic"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, create_datetime, update_datetime, description, news_class_name,pic,mobile_pic,mobile_banner_pic,keywords,banner_pic
+    </sql>
+
+	<select id="selectNewsClass" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from news_class
+		order by update_datetime desc
+	</select>
+
+	<select id="selectNewsClassById" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from news_class
+		where id = #{newsId}
+	</select>
+
+</mapper>

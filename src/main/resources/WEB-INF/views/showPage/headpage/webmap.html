@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>网站地图_重庆恭逸科技有限公司</title>
+    <meta name=”Keywords” content=”重庆恭逸科技有限公司官网地图”/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content=""/>
+    <!-- bootstrap-css -->
+    <link href="${ctxPath}/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
+    <!--// bootstrap-css -->
+    <link rel="icon" type="image/x-icon" href="${ctxPath}/static/faviconTitle.ico"/>
+    <!-- css -->
+    <link rel="stylesheet" href="${ctxPath}/static/css/style.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="${ctxPath}/static/css/layui.css" type="text/css" media="all"/>
+    <link href="${ctxPath}/static/css/zhyd.comment.css" rel="stylesheet">
+    <link href="${ctxPath}/static/css/zhyd.core.css" rel="stylesheet">
+    <!--// css -->
+    <!-- font-awesome icons -->
+    <link href="${ctxPath}/static/css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <script src="${ctxPath}/static/js/jquery-1.11.1.min.js"></script>
+    <script src="${ctxPath}/static/js/bootstrap.js"></script>
+    <script src="${ctxPath}/static/js/bootstrap-paginator.js"></script>
+</head>
+<body style="padding-top: 20px">
+<div class="container-fluid" style="margin-top: 10px;color: #474747">
+    <div class="container">
+        <div class="web-map-div1">
+            <div style="display: inline-block;float: left;font-size: 20px;">网站地图</div>
+            <div style="display: inline-block;float: right">
+                <ul style="list-style: none">
+                    <li style="display: inline-block;">
+                        <span style="color:#464646 ">您当前的位置：</span>
+                        <a href="/index.html"
+                           style="color: #464646; text-decoration: none;font-family: 'Roboto', sans-serif;">首页</a>
+                        <span style="color:#464646 "> &nbsp>>&nbsp </span>
+                    </li>
+                    <li style="display: inline-block;color: #464646;font-family: 'Open Sans', sans-serif;letter-spacing: 1px">
+                        网站地图
+                    </li>
+                </ul>
+            </div>
+            <hr/>
+        </div>
+        <!--首页-->
+        <div class="web-map-div1">
+            <div class="alert alert-success" style="height: 50px" role="alert">
+                <a href="${navindex.navUrl}"> <span class="web-map-t1">${navindex.navName}</span></a>
+            </div>
+            <div class="web-map-div2"><a href="${navindex.navUrl}"><span
+                    class="web-map-t2">${navindex.navName}</span></a></div>
+            <hr/>
+        </div>
+        <!--智能马桶-->
+        <div class="web-map-div1">
+            <div class="alert alert-success" style="height: 50px" role="alert">
+                <a href="${navMatong.navUrl}">
+                    <span class="web-map-t1">${navMatong.navName}</span>
+                </a>
+            </div>
+            <div class="web-map-div2">
+                <a href="${navMatong.navUrl}">
+                    <span class="web-map-t2">${navMatong.navName}</span>
+                </a>
+            </div>
+            <hr/>
+            <div class="web-map-div3">
+                @for(product in matong.result){
+                <a style="margin-left: 10px" href="/product/detail/${product.id}.html"><span class="web-map-t3">${product.productName}</span></a>
+                @}
+            </div>
+        </div>
+        <!--智能马桶盖-->
+        <div class="web-map-div1">
+            <div class="alert alert-success" style="height: 50px" role="alert">
+                <a href="${navMatonggai.navUrl}">
+                    <span class="web-map-t1">${navMatonggai.navName}</span>
+                </a>
+            </div>
+            <div class="web-map-div2">
+                <a href="${navMatonggai.navUrl}">
+                    <span class="web-map-t2">${navMatonggai.navName}</span>
+                </a>
+            </div>
+            <hr/>
+            <div class="web-map-div3">
+                @for(product in matonggai.result){
+                <a style="margin-left: 10px" href="/product/detail/${product.id}.html">
+                        <span class="web-map-t3">${product.productName}
+                        </span>
+                </a>
+                @}
+            </div>
+        </div>
+        <!--功能分类-->
+        <div class="web-map-div1">
+            <div class="alert alert-success" style="height: 50px" role="alert">
+                <a href="${navFunction.navUrl}"><span class="web-map-t1">${navFunction.navName}</span></a>
+            </div>
+            @for(function in functionClassDTOS){
+            <div class="web-map-div2">
+                <a href="/function/${function.id}.html">
+                    <span class="web-map-t2">${function.englishName}</span>
+                </a>
+            </div>
+            <hr/>
+            <div class="web-map-div3">
+                @for(product in function.list){
+                <a style="margin-left: 10px" href="/product/detail/${product.id}.html">
+                    <span class="web-map-t3">${product.productName}</span>
+                </a>
+                @}
+            </div>
+            @}
+        </div>
+        @if(moblie==1){
+        <div class="web-map-div1">
+            <div class="alert alert-success" style="height: 50px" role="alert">
+                <a href="/functionMoblie"><span class="web-map-t1">功能分类详情</span></a>
+            </div>
+        </div>
+        @}
+        <!--新闻资讯-->
+        <div class="web-map-div1">
+            <div class="alert alert-success" style="height: 50px" role="alert">
+                <a href="${navNews.navUrl}"><span class="web-map-t1">${navNews.navName}</span></a>
+            </div>
+            @for(newsClass in newsClassDTOS){
+            <div class="web-map-div2">
+                <a href="/newsListPage/${newsClass.id}.html">
+                    <span class="web-map-t2">${newsClass.newsClassName}</span>
+                </a>
+            </div>
+            <hr/>
+            <div class="web-map-div3">
+                @for(new in newsClass.list){
+                <a style="margin-left: 10px" href="/newsDetail/newsId${new.id}.html"><span class="web-map-t3">${new.newsTitle}</span></a>
+                @}
+            </div>
+            @}
+        </div>
+        <!--关于我们-->
+        <div class="web-map-div1">
+            <div class="alert alert-success" style="height: 50px" role="alert">
+                <a href="${navAboutme.navUrl}"> <span class="web-map-t1">${navAboutme.navName}</span></a>
+            </div>
+            <div class="web-map-div2">
+                <a href="${navAboutme.navUrl}">
+                    <span class="web-map-t2">${navAboutme.navName}</span>
+                </a>
+            </div>
+            <hr/>
+        </div>
+        <!--在线留言-->
+        <div class="web-map-div1">
+            <div class="alert alert-success" style="height: 50px" role="alert">
+                <a href="${navMessage.navUrl}"> <span class="web-map-t1">${navMessage.navName}</span></a>
+            </div>
+            <div class="web-map-div2">
+                <a href="${navMessage.navUrl}"><span class="web-map-t2">${navMessage.navName}</span>
+                </a>
+            </div>
+            <hr/>
+        </div>
+        <!--APP-->
+        <div class="web-map-div1">
+            <div class="alert alert-success" style="height: 50px" role="alert">
+                <a href="${navApp.navUrl}"> <span class="web-map-t1">${navApp.navName}</span></a>
+            </div>
+            <div class="web-map-div2">
+                <a href="${navApp.navUrl}"><span class="web-map-t2">${navApp.navName}</span>
+                </a>
+            </div>
+            <hr/>
+        </div>
+        <!--热门搜索-->
+        <div class="web-map-div1">
+            <div class="alert alert-success" style="height: 50px" role="alert">
+                <a href="/search/keywords/马桶.html"> <span class="web-map-t1">热门搜索</span></a>
+            </div>
+            <div class="web-map-div2">
+                <a href="/search/keywords/马桶.html">
+                    <span class="web-map-t2">热门搜索</span>
+                </a>
+            </div>
+            <hr/>
+            <div class="web-map-div3">
+                @for(hot in hotword){
+                <a style="margin-left: 10px" href="/search/keywords/${hot.word}.html"><span
+                        class="web-map-t3">${hot.word}</span></a>
+                @}
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

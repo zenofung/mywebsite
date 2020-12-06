@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>${title}</title>
+    <meta name=”keywords” content=”${keywords}”/>
+    <meta name="description" content="${description}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content=""/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!-- bootstrap-css -->
+    <link href="${ctxPath}/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
+    <!--// bootstrap-css -->
+    <link rel="icon" type="image/x-icon" href="${ctxPath}/static/faviconTitle.ico"/>
+    <!-- css -->
+    <link rel="stylesheet" href="${ctxPath}/static/css/style.css" type="text/css" media="all"/>
+    <link href="${ctxPath}/static/css/zhyd.comment.css" rel="stylesheet">
+    <link href="${ctxPath}/static/css/zhyd.core.css" rel="stylesheet">
+    <!--// css -->
+    <!-- font-awesome icons -->
+    <link href="${ctxPath}/static/css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <script src="${ctxPath}/static/js/jquery-1.11.1.min.js"></script>
+    <script src="${ctxPath}/static/js/bootstrap.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
+            });
+        });
+    </script>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <![endif]-->
+    <style>
+        p {
+            color: #727272;
+        }
+
+        .allbtn {
+            border-radius: 40px;
+            border: 1px solid black;
+            width: 80px;
+            padding: 3px;
+            background-color: transparent;
+            margin-top: 10px;
+            outline: none;
+        }
+        .allbtn:hover{
+            background-color: #50C9A0;
+            color: white;
+            border: 1px solid white;
+        }
+
+        .divimg {
+            height: 240px;
+            width: 240px;
+            border-radius: 50%;
+            background-color: white;
+            border: solid 7px #50c9a0;
+        }
+    </style>
+</head>
+<body>
+<!--banner-->
+@include("../_header.html",{current:'功能分类'}){}
+<div class="w3layouts-banner-top-functionClass visible-lg-block visible-md-block"
+     style="background-size: cover ;height: 570px">
+</div>
+
+<div class="banner-top visible-xs-block"
+     style="height: 300px;background: url('/static/images/mobile/function/banner.jpg') no-repeat 0;background-size: cover ">
+</div>
+<!--//banner-->
+<div class="container-fluid " style="background-color: #E5E5E5;padding: 0">
+    <div class="container visible-md-block visible-lg-block" style="margin-top: 10px;position: relative;">
+        <div class="col-md-3 visible-md-block visible-lg-block" style="position: static">
+            <div id="function" style="z-index:999;width: 200px;opacity: 0.8">
+                <div style="background-color:#f8f8f8;color: #3a3a3a;">
+                    <div style="font-weight: 400;font-size: 18px; text-align:center;line-height:35px;background-color: #50c9a0;">
+                        <span style="color: white">功能分类</span>
+                    </div>
+                    <div style="width: 100%;text-align: center;font-size: 16px">
+                        @for(functionClass in functionClassList.result){
+                        <div style="width: 100%;line-height: 35px;">
+                            <a style="color: #3a3a3a" href="#${functionClass.id}">
+                                ${functionClass.functionClassName}
+                            </a>
+                        </div>
+                        @if(!functionClassLP.last){
+                        <hr style="margin:0 43% 0 43%;background-color: #50C9A0;height: 1px"/>
+                        @}
+                        @}
+                    </div>
+                </div>
+                @include("../container_left.html"){}
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="visible-lg-block visible-md-block" style="height: 40px;width: 100%;line-height: 40px;">
+                <div style="display: inline-block;border-left:8px solid #50c9a0;padding-left: 8px;height: 35px"><span
+                        style="margin: 0;font-size: 21px;color: #474747">功能分类</span></div>
+                <!--面包屑 -->
+                <div style="display: inline-block;float: right">
+                    <ul style="list-style: none">
+                        <li style="display: inline-block;">
+                            <span style="color:#464646 ">您当前的位置：</span>
+                            <a href="/index"
+                               style="color: #464646; text-decoration: none;font-family: 'Roboto', sans-serif;">首页</a>
+                            <span style="color:#464646 "> &nbsp>>&nbsp </span>
+                        </li>
+                        <li style="display: inline-block;color: #464646;font-family: 'Open Sans', sans-serif;letter-spacing: 1px">
+                            功能分类
+                        </li>
+                    </ul>
+                </div>
+                <!--//面包屑 -->
+            </div>
+            <div id="productList">
+                <div id="${functionClassList.result[0].id}" class="row" style="margin-top: 50px">
+                    <div class="col-md-5" style="text-align: center;margin-top: 25px;">
+                        <div class="divimg">
+                            <img src="${functionClassList.result[0].pic}" width="227px;" height="227px"
+                                 style="border-radius: 50%;">
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="margin-top: 25px;">
+                        <div class="wthree-heading" style="text-align: left">
+                            <div style="margin-bottom: 30px">
+                                <span style="font-size: 25px;display: block;color: #2b2b2b">URINE TOILET</span>
+                                <span style="font-size: 35px;font-weight: 500;display: block;color:#50C9A0 ">${functionClassList.result[0].productName}</span>
+                            </div>
+                            <p>
+                                ${functionClassList.result[0].description}
+                            </p>
+                            <button class="allbtn" type="button"
+                                    onclick="window.location.href='/function/${functionClassList.result[0].id}.html'">
+                                全部商品
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <canvas id="myCanvas" style="width: 100%;height: 250px;margin: -40px 0px -60px 0">
+                </canvas>
+                <div id="${functionClassList.result[1].id}" class="row function-class">
+                    <div class="col-md-6" style="margin-top: 25px;">
+                        <div class="wthree-heading" style="text-align: left">
+                            <div style="margin-bottom: 30px">
+                                <span style="font-size: 25px;display: block;color: #2b2b2b">URINE TOILET</span>
+                                <span style="font-size: 35px;font-weight: 500;display: block;color:#50C9A0 ">${functionClassList.result[1].productName}</span>
+                            </div>
+                            <p>
+                                ${functionClassList.result[1].description}
+                            </p>
+                            <button type="button" class="allbtn"
+                                    onclick="window.location.href='/function/${functionClassList.result[1].id}.html'">
+                                全部商品
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5" style="text-align: center;margin-top: 25px;">
+                        <div class="divimg">
+                            <img src="${functionClassList.result[1].pic}" width="227px;" height="227px"
+                                 style="border-radius: 50%;">
+                        </div>
+                    </div>
+                </div>
+                <canvas id="myCanvas2" style="width: 100%;height: 250px;margin: -40px 0px -60px 0">
+                </canvas>
+                <div id="${functionClassList.result[2].id}" class="row function-class">
+                    <div class="col-md-5" style="text-align: center;margin-top: 25px;">
+                        <div class="divimg">
+                            <img src="${functionClassList.result[2].pic}" width="227px;" height="227px"
+                                 style="border-radius: 50%;">
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="margin-top: 25px;">
+                        <div class="wthree-heading" style="text-align: left">
+                            <div style="margin-bottom: 30px">
+                                <span style="font-size: 25px;display: block;color: #2b2b2b">URINE TOILET</span>
+                                <span style="font-size: 35px;font-weight: 500;display: block;color:#50C9A0 ">
+                                        ${functionClassList.result[2].productName}
+                                    </span>
+                            </div>
+                            <p>
+                                ${functionClassList.result[2].description}
+                            </p>
+                            <button type="button" class="allbtn"
+                                    onclick="window.location.href='/function/${functionClassList.result[2].id}.html'">
+                                全部商品
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <canvas id="myCanvas3" style="width: 100%;height: 250px;margin: -40px 0px -60px 0">
+                </canvas>
+                <div id="${functionClassList.result[3].id}" class="row function-class">
+                    <div class="col-md-6" style="margin-top: 25px;">
+                        <div class="wthree-heading" style="text-align: left">
+                            <div style="margin-bottom: 30px">
+                                <span style="font-size: 25px;display: block;color: #2b2b2b">URINE TOILET</span>
+                                <span style="font-size: 35px;font-weight: 500;display: block;color:#50C9A0 ">
+                                        ${functionClassList.result[3].productName}
+                                    </span>
+                            </div>
+                            <p>
+                                ${functionClassList.result[3].description}
+                            </p>
+                            <button type="button" class="allbtn"
+                                    onclick="window.location.href='/function/${functionClassList.result[3].id}.html'">
+                                全部商品
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5" style="text-align: center;margin-top: 25px;">
+                        <div class="divimg">
+                            <img src="${functionClassList.result[3].pic}" width="227px;" height="227px"
+                                 style="border-radius: 50%;">
+                        </div>
+                    </div>
+                </div>
+                <canvas id="myCanvas4" style="width: 100%;height: 250px;margin: -40px 0px -60px 0">
+                </canvas>
+                <div id="${functionClassList.result[4].id}" class="row" style="margin-bottom: 150px">
+                    <div class="col-md-5" style="text-align: center;margin-top: 25px;">
+                        <div class="divimg">
+                            <img src="${functionClassList.result[4].pic}" width="227px;" height="227px"
+                                 style="border-radius: 50%;">
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="margin-top: 25px;">
+                        <div class="wthree-heading" style="text-align: left">
+                            <div style="margin-bottom: 30px">
+                                <span style="font-size: 25px;display: block;color: #2b2b2b">URINE TOILET</span>
+                                <span style="font-size: 35px;font-weight: 500;display: block;color:#50C9A0 ">
+                                        ${functionClassList.result[4].productName}
+                                    </span>
+                            </div>
+                            <p>
+                                ${functionClassList.result[4].description}
+                            </p>
+                            <button type="button" class="allbtn"
+                                    onclick="window.location.href='/function/${functionClassList.result[4].id}.html'">
+                                全部商品
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container visible-xs-block">
+        @for(function in functionClassList.result){
+        <div class="visible-xs-block" style="margin-top: 20px">
+            <span class="mobile-title1">URINE TOILET</span>
+            <span class="mobile-title2">${function.productName}</span>
+        </div>
+        <div class="mobile-function-img"
+             style="background: url('${ctxPath}/static/images/mobile/function/全部产品.jpg')no-repeat 0 0;background-size: 100%;padding-top: 30%">
+            <a class="mobile-btn-a" style="width: 35%;margin: 25px auto 0px auto"
+               href="/function/${function.id}.html">
+                <span class="mobile-btn-span">全部商品</span>
+                <img class="mobile-btn-img" src="${ctxPath}/static/images/mobile/icon/箭头.png"/>
+            </a>
+        </div>
+        <div class="mobile-function-description">
+            ${function.description}
+        </div>
+        @}
+    </div>
+</div>
+<!-- footer -->
+@include("../_footer.html"){}
+<!-- //footer -->
+<script>
+    var c = document.getElementById("myCanvas");
+    var cxt = c.getContext("2d");
+    cxt.strokeStyle = '#b1d2c7';
+    cxt.setLineDash([15, 5]);
+    cxt.beginPath();
+    cxt.moveTo(60, 0);
+    cxt.lineTo(200, 150);
+    cxt.stroke();
+    var c2 = document.getElementById("myCanvas2");
+    var cxt2 = c2.getContext("2d");
+    cxt2.strokeStyle = '#b1d2c7';
+    cxt2.setLineDash([15, 5]);
+    cxt2.beginPath();
+    cxt2.moveTo(200, 0);
+    cxt2.lineTo(60, 150);
+    cxt2.stroke();
+    var c3 = document.getElementById("myCanvas3");
+    var cxt3 = c3.getContext("2d");
+    cxt3.strokeStyle = '#b1d2c7';
+    cxt3.setLineDash([15, 5]);
+    cxt3.beginPath();
+    cxt3.moveTo(60, 0);
+    cxt3.lineTo(200, 150);
+    cxt3.stroke();
+    var c4 = document.getElementById("myCanvas4");
+    var cxt4 = c4.getContext("2d");
+    cxt4.strokeStyle = '#b1d2c7';
+    cxt4.setLineDash([15, 5]);
+    cxt4.beginPath();
+    cxt4.moveTo(200, 0);
+    cxt4.lineTo(60, 150);
+    cxt4.stroke();
+</script>
+<script>
+    var left = $("#function");
+    var win = $(window); //得到窗口对象
+    var sc = $(document);//得到document文档对象
+    win.scroll(function () {
+        var t2 = document.documentElement.scrollHeight;
+        var t1 = document.documentElement.scrollTop ;
+        var b = t2-t1;
+        console.log("距离底部距离："+ b);
+        navScroll(b);
+    });
+
+    function navScroll(bottom) {
+        if (sc.scrollTop() >= 500) {
+            if (left.hasClass("left_absolute")) {
+                left.removeClass("left_absolute");
+            }
+            if(bottom<1100){
+                left.addClass("left_relative");
+                left.removeClass("left_nav_class");
+            }else{
+                left.addClass("left_nav_class");
+                left.removeClass("left_relative")
+                if (win.width < 768) {
+                    left.animate({display: 'none'}, 0)
+                }
+            }
+        } else {
+            left.removeClass("left_relative");
+            left.removeClass("left_nav_class");
+        }
+    }
+</script>
+<script src="${ctxPath}/static/js/jarallax.js"></script>
+<script src="${ctxPath}/static/js/SmoothScroll.min.js"></script>
+<script type="text/javascript">
+    /* init Jarallax */
+    $('.jarallax').jarallax({
+        speed: 0.5,
+        imgWidth: 1366,
+        imgHeight: 768
+    })
+</script>
+<script src="${ctxPath}/static/js/responsiveslides.min.js"></script>
+<script type="text/javascript" src="${ctxPath}/static/js/move-top.js"></script>
+<script type="text/javascript" src="${ctxPath}/static/js/easing.js"></script>
+<!-- here stars scrolling icon -->
+<script type="text/javascript" src="${ctxPath}/static/js/scroller-menu.js"></script>
+<!-- //here ends scrolling icon -->
+
+
+</body>
+</html>

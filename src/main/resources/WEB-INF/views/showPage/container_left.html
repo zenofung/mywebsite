@@ -1,0 +1,53 @@
+<div style="background-color:#f8f8f8;color: #3a3a3a;">
+    <div style="font-weight: 400;font-size: 18px; text-align:center;line-height:35px;background-color: #50c9a0;">
+        <span style="color: white">最新资讯</span>
+    </div>
+    <div style="width: 100%;font-family: monospace;">
+        <div style="width: 100%;font-size: 14px;height: 5px;"></div>
+        @for(item in news){
+        <div style="width: 100%;font-size: 14px;line-height: 25px;">
+            <a href="/newsDetail/newsId${item.id}.html" style="color: #3a3a3a">
+                <span style="font-size:12px;vertical-align: middle;margin-left:15%;width:70%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;display: inline-block">
+                    ${item.newsTitle}
+                </span>
+                <span style="vertical-align: middle;width: 15%">> </span>
+            </a>
+        </div>
+        @}
+        <div style="width: 100%;font-size: 14px;height: 5px;"></div>
+    </div>
+</div>
+<div style="background-color:#f8f8f8;color: #3a3a3a;">
+    <div style="font-weight: 400;font-size: 18px; text-align:center;line-height:35px;background-color: #50c9a0;">
+        <span style="color: white;">热门搜索</span>
+    </div>
+    <div style="width: 100%;padding-left: 15px">
+        @for(word in hotWords){
+        <div style="margin-left:3px;padding:2px 6px;background-color:#50c9a0;border-radius: 6px;display: inline-block;margin: 6px;">
+            <a href="/search/keywords/${word.word}.html"><span style="font-size: 12px;color: white">${word.word}</span></a>
+        </div>
+        @}
+    </div>
+</div>
+<div style="background-color:#f8f8f8;color: #3a3a3a;margin-bottom: 50px">
+    <div style=" font-weight: 400;font-size: 18px; text-align:center;line-height:35px;background-color: #50c9a0;">
+        <span style="color: white;">联系我们</span>
+    </div>
+    <div style="width: 100%;padding: 5px 0px">
+        <div style="width: 100%;font-size: 12px;line-height: 25px;margin-top: 5px ">
+            <div style="display: inline-block;margin-left: 15%"><img src="${ctxPath}/static/images/icon/zuoji.png">
+            </div>
+            <div style="display: inline-block;margin-left: 5%;color: #3A3A3A;">${linkUs.phone}</div>
+        </div>
+        <div style="width: 100%;font-size: 14px;line-height: 25px;font-size: 12px ">
+            <div style="display: inline-block;margin-left: 15%"><img src="${ctxPath}/static/images/icon/phone.png">
+            </div>
+            <div style="display: inline-block;margin-left: 5%;color: #3A3A3A;">${linkUs.tel}</div>
+        </div>
+        <div style="width: 100%;font-size: 14px;line-height: 25px; margin-bottom: 5px  ">
+            <div style="display: inline-block;margin-left: 15%;vertical-align: top"><img
+                    src="${ctxPath}/static/images/icon/localtion.png"></div>
+            <div style="display: inline-block;margin-left: 5%;color: #3A3A3A;width: 50%">${linkUs.addr}</div>
+        </div>
+    </div>
+</div>

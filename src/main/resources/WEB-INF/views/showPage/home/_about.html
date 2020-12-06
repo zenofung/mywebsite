@@ -1,0 +1,59 @@
+<!-- 关于我们 -->
+<div class="visible-lg-block visible-md-block" id="testimonial" style="min-height:700px;background:url('${ctxPath}/static/images/home/关于我们.jpg') no-repeat 0px 0px;background-size:cover;">
+        <div class="container-fluid" style="position: relative;height: 100%">
+
+                <div class="wthree-heading testimonial-heading" style="top:125px;right:390px;height:500px;width: 640px;background: url('${ctxPath}/static/images/dott.png')repeat 0px 0px;position: absolute">
+                    <span style="margin-top: 50px;font-style: normal; margin-bottom: 40px;float: right;font-size: 40px;color: white;padding-right: 50px;display: block">关于我们</span>
+                    <div class="clearfix"></div>
+                    <div style="width: 100%;line-height:1.4;height:55%;overflow: hidden;text-overflow:ellipsis;">
+                        <p style="color: white;text-align: right;padding-left: 100px;padding-right: 50px;font-size: 20px;"> ${companyInfo.companyPurpose}
+                        </p>
+                    </div>
+                    <div style="margin-top: 15px">
+                        <a href="/about" class="btn_more">MORE +</a>
+                    </div>
+                </div>
+
+        </div>
+</div>
+
+<div class="visible-lg-block visible-md-block" style="width:100%;height: 70px;background-color: #50c9a0">
+    <div class="container" >
+        <span style="color: white;font-size:20px;font-weight: 600 ;margin-top:25px;display: inline-block;padding-left: 15px;width: 10%"> 友情链接</span>
+        <ul style="list-style: none;display: inline-block;vertical-align: middle;margin-left: 10px;width: 88%">
+            @for(item in links){
+            <li style="display: inline-block;margin-left: 20px"><a  style="color: white;font-family:monospace;font-size:18px;" target="_blank" href="${item.url}">${item.name}</a></li>
+            @}
+        </ul>
+    </div>
+</div>
+<!-- //关于我们 -->
+
+
+<!--mobile -->
+<div class="blog visible-xs-block visible-sm-block" style="background-color: #EEEEEE;padding-top: 20px;">
+    <div class="container">
+        <div>
+            <span class="mobile-title1">从创新到责任</span>
+            <span class="mobile-title2">恭逸智能  品牌与承诺</span>
+        </div>
+        <div>
+            <p style="word-wrap: break-word;font-size: 15px">${companyInfo.companyPurpose}</p>
+        </div>
+
+        <div style="width: 100%;height: 269px;background: url('${ctxPath}/static/images/mobile/home/关于恭逸.jpg')no-repeat 0 0;background-size:cover;margin-top: 19px;display: flex;align-items: center;justify-content: center">
+           <div>
+               <div>
+                   <h3 style="font-size: 15px;color: white">三年潜心研究</h3>
+                   <h1 style="font-size: 25px;color: white;margin: 0">设计和质量至臻一流</h1>
+               </div>
+               <div class="mobile-btn-a" onclick="window.location.href='/about' ">
+                   <span class="mobile-btn-span">关于恭逸</span>
+                   <img class="mobile-btn-img" src="${ctxPath}/static/images/mobile/icon/箭头.png" >
+               </div>
+           </div>
+        </div>
+    </div>
+</div>
+
+<!--//mobile -->

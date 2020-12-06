@@ -1,0 +1,67 @@
+<!-- 作品展示 -->
+<div class="about visible-md-block visible-lg-block" id="product" style="background-color: #EEEEEE">
+    <div class="container">
+        <div class="w3-about-grids">
+            <div class="col-md-12">
+                <div id="main" role="main">
+                    <div class="wthree-heading" style="margin-top:50px">
+                        <span style="font-size: 40px;color: #50C9A0;display: block">产品展示</span>
+                        <span style="font-size: 20px;color: #50C9A0;display: block">PRODUCT DISPLAY</span>
+                    </div>
+                    <section class="slider">
+                        <div id="slider" class="flexslider" style="background-color: #EEEEEE;border: 1px solid #EEEEEE">
+                            <ul class="slides" style="margin-top:50px">
+                                @for(item in products){
+                                <li>
+                                    @for(p in @item.getProductList()){
+                                    <div class="col-md-4 visible-md-block visible-lg-block">
+                                        <a href="/product/detail/${p.id}.html">
+                                            <div class="panel panel-default product-item" style="height: 471px">
+                                                <div class="panel-body"
+                                                     style="padding-top: 57px;height:400px;padding-bottom: 59px">
+                                                    <img src="${p.pic}" alt="${p.productName}"/>
+                                                </div>
+                                                <div class="panel-footer" style="background-color: transparent">
+                                                    <span>${p.productName}</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    @}
+                                </li>
+                                @}
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- //作品展示 -->
+
+
+<div class="about  visible-xs-block visible-sm-block" style="background-color: #EEEEEE;padding-top:20px">
+    <div class="container">
+        <div>
+            <span class="mobile-title1">APP-站式检测身体健康指标</span>
+            <span class="mobile-title2">不止于方便  可以体检的智能马桶盖</span>
+        </div>
+        @for(item in classList){
+        <div class="col-xs-12"
+             style="background: url(${item.mobilePic})no-repeat 0 0;background-size:cover;height: 300px;text-align: center;margin-bottom: 25px;display: flex;justify-content: center;align-items: center;">
+            <div>
+                <h1 style="font-size: 30px;color: white;margin-bottom: 0">${item.name}</h1>
+                <h3 style="font-size: 12px;color: white;margin: 0">INTELLIGENT TOILET</h3>
+                <a class="mobile-btn-a" href="/product/list?className=${item.id}">
+                    <span class="mobile-btn-span">前去体验</span>
+                    <img class="mobile-btn-img" src="${ctxPath}/static/images/mobile/icon/箭头.png"/>
+                </a>
+            </div>
+        </div>
+        @}
+
+    </div>
+</div>
+

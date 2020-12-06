@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.website.company.mapper.CompanyInfoMapper">
+
+
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.website.company.entity.CompanyInfo">
+		<id column="id" property="id" />
+		<result column="create_datetime" property="createDatetime" />
+		<result column="update_datetime" property="updateDatetime" />
+		<result column="company_name" property="companyName" />
+		<result column="company_purpose" property="companyPurpose" />
+		<result column="description" property="description" />
+		<result column="link_man_id" property="linkManId" />
+		<result column="working_range" property="workingRange" />
+		<result column="work_range_pic" property="workingRangePic"/>
+		<result column="team" property="team" />
+		<result column="leader" property="leader"/>
+		<result column="work_team" property="workTeam"/>
+		<result column="company_manage" property="companyManage" />
+		<result column="dev_pic" property="devPic"/>
+		<result column="dev_phone_pic" property="devPhonePic"/>
+		<result column="manage_info" property="manageInfo" />
+		<result column="company_culture_title" property="companyCultureTitle"/>
+		<result column="company_culture" property="companyCulture" />
+		<result column="mobile_banner_pic" property="mobileBannerPic"/>
+		<result column="pic" property="pic"/>
+		<result column="attract_title" property="attractTitle"/>
+		<result column="attract_content" property="attractContent"/>
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+       id,create_datetime,update_datetime,company_name,company_purpose,description,link_man_id,working_range,
+       team,leader,work_team,company_manage,dev_pic,dev_phone_pic,manage_info,company_culture_title,
+       company_culture,mobile_banner_pic,pic,attract_title,attract_content,work_range_pic
+    </sql>
+
+	<select id="selectCompanyInfo" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from company_info
+	</select>
+
+</mapper>

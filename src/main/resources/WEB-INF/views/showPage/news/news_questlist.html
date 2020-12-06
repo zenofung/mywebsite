@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>${className}_重庆恭逸科技有限公司</title>
+    <meta name=”Keywords” content=”${newsClassKeywords}”/>
+    <meta name="Description" content="${newClassDetail}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!-- bootstrap-css -->
+    <link href="${ctxPath}/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
+    <!--// bootstrap-css -->
+    <link rel="icon" type="image/x-icon" href="${ctxPath}/static/faviconTitle.ico"/>
+    <!-- css -->
+    <link rel="stylesheet" href="${ctxPath}/static/css/style.css" type="text/css" media="all"/>
+    <link href="${ctxPath}/static/css/zhyd.comment.css" rel="stylesheet">
+    <link href="${ctxPath}/static/css/zhyd.core.css" rel="stylesheet">
+    <!--// css -->
+
+    <!-- font-awesome icons -->
+    <link href="${ctxPath}/static/css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <script src="${ctxPath}/static/js/jquery-1.11.1.min.js"></script>
+    <script src="${ctxPath}/static/js/bootstrap.js"></script>
+
+    <script src="${ctxPath}/static/js/bootstrap-paginator.js"></script>
+    <!-- flexslider -->
+    <link rel="stylesheet" href="${ctxPath}/static/css/flexslider.css" type="text/css" media="screen"/>
+    <!-- //flexslider -->
+
+</head>
+<body>
+<!--banner-->
+@include("../_header.html",{current:'新闻资讯'}){}
+<div class="banner-top visible-lg-block visible-md-block"
+     style=" background: url(${newsClassDesc.bannerPic}) no-repeat 0px 0px;background-size: cover;height: 570px">
+</div>
+
+<div class="banner-top visible-xs-block visible-sm-block"
+     style="height: 300px;background: url(${newsClassDesc.mobileBannerPic}) no-repeat 0 ;background-size: cover ">
+</div>
+<!--//banner-->
+
+<div class="container-fluid" style="background-color: #E5E5E5;padding: 0">
+    <div class="container" style="margin-top: 10px;position: relative;">
+        <div class="col-md-3  visible-md-block visible-lg-block" style="position: static">
+            <div id="news_list" style="z-index: 999;width: 200px;opacity: 0.8">
+                <div style="background-color:#f8f8f8;color: #3a3a3a;">
+                    <div style="font-weight: 400;font-size: 18px; text-align:center;line-height:35px;background-color: #50c9a0;">
+                        <span style="color: white">新闻分类</span>
+                    </div>
+                    <div style="width: 100%;text-align: center">
+                        @for(newClass in newsClass){
+                        @if(classId==newClass.id){
+                        <div style="width: 100%;line-height: 35px;font-size:16px">
+                            <a href="/newsListPage/${newClass.id}.html" style="color: #50c9a0; ">
+                                ${newClass.newsClassName}
+                            </a>
+                        </div>
+                        @if(!newClassLP.last){
+                        <hr style="margin:0 43% 0 43%;background-color: #50C9A0;height: 1px"/>
+                        @}
+                        @}else{
+                        <div style="width: 100%;line-height: 35px;font-size: 16px">
+                            <a href="/newsListPage/${newClass.id}.html" style="color: #3a3a3a">
+                                ${newClass.newsClassName}
+                            </a>
+                        </div>
+                        @if(!newClassLP.last){
+                        <hr style="margin:0 43% 0 43%;background-color: #50C9A0;height: 1px"/>
+                        @}
+                        @}
+                        @}
+                    </div>
+                </div>
+                @include("../container_left.html"){}
+            </div>
+        </div>
+        <div class="col-md-9 ">
+            <div class="visible-lg-block visible-md-block" style="height: 40px;width: 100%;line-height: 40px">
+                <div style="display: inline-block;border-left:8px solid #50c9a0;padding-left: 8px;height: 35px">
+                    <span style="margin: 0;font-size: 21px;color: #474747">${className}</span>
+                </div>
+                <div style="display: inline-block;float: right">
+                    <ul style="list-style: none">
+                        <li style="display: inline-block;">
+                            <span style="color:#464646 ">您当前的位置：</span>
+                            <a href="/index"
+                               style="color: #464646; text-decoration: none;font-family: 'Roboto', sans-serif;">首页</a>
+                            <span style="color:#464646 "> &nbsp>>&nbsp </span>
+                        </li>
+                        <li style="display: inline-block;">
+                            <a href="/newsListPage.html"
+                               style="color: #464646; text-decoration: none;font-family: 'Roboto', sans-serif;">新闻资讯</a>
+                            <span style="color:#464646 "> &nbsp>>&nbsp </span>
+                        </li>
+                        <li style="display: inline-block;color: #464646;font-family: 'Open Sans', sans-serif;letter-spacing: 1px">
+                            ${className}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--移动端标题及介绍-->
+            <div class="visible-xs-block visible-sm-block">
+                <span class="mobile-title1">常见问题</span>
+                <span class="mobile-title2">畅享科技前沿&ensp;&ensp;紧追行业最新成就</span>
+            </div>
+            <div class="blog-main " style="margin-top: 30px" id="media">
+                @for(loadNewsVO in newsList){
+                <article class="fade-in" style="background-color: #f3f3f3;margin-top: 25px;width: 100%;height: 160px"
+                         onmouseenter="this.style.backgroundColor='#cee7de'"
+                         onmouseleave="this.style.backgroundColor='#f3f3f3'"
+                         onclick="window.location.href='/newsDetail/newsId${loadNewsVO.id}.html'">
+                    <!--pc端-->
+                    <div class="visible-lg-block visible-md-block"
+                         style="height: 100%;width: auto;color: #585858;cursor: pointer">
+                        <div class="col-md-2" style="height: 100%;">
+                            <span style="font-size: 30px;color:#50c9a0;margin-top: 13px ;margin-left:10px;font-weight: 500;display: block;">Q${loadNewsVOLP.index}</span>
+                        </div>
+                        <div class="col-md-10" style="height: 100%">
+                            <div style="margin-top: 20px;width: 95%">
+                                    <span style="display: inline-block;width:80%;font-size: 20px;color: #585858;white-space: nowrap;overflow: hidden;text-overflow: ellipsis"
+                                          title="${loadNewsVO.newsTitle}">
+                                        ${loadNewsVO.newsTitle}
+                                    </span>
+                                @if(loadNewsVO.top==1 ){
+                                <span style="float: right"><img src="${ctxPath}/static/images/icon/top.png"></span>
+                                @}
+                            </div>
+                            <div class="question-lg">
+                                ${loadNewsVO.description}
+                            </div>
+                        </div>
+                    </div>
+                    <!--移动端-->
+                    <div class="visible-xs-block visible-sm-block col-xs-3"
+                         style="height: 100%;padding: 0px;background-color: white">
+                            <span style="color: #3A3A3A;display:inline-block;font-size: 28px;font-weight: 700;margin-top: 8px;margin-left: 20%">
+                                Q${loadNewsVOLP.index}
+                            </span>
+                    </div>
+                    <div class="visible-xs-block visible-sm-block col-xs-9"
+                         style="height: 100%;background-color: white;">
+                        <div>
+                                <span class="title-xs">
+                                    ${loadNewsVO.newsTitle}
+                                </span>
+                        </div>
+                        <div class="content-xs" style="height: 60px">
+                            ${loadNewsVO.description}
+                        </div>
+                        <div style="color: #5c5c5c;width: 95%">
+                                <span class="views" data-toggle="tooltip" data-placement="bottom"
+                                      data-original-title="文章发表日期">
+                                    ${loadNewsVO.updateDatetime,dateFormat="yyyy-MM-dd"}
+                                </span>
+                            <span style="float: right;">${loadNewsVO.author}</span>
+                        </div>
+                    </div>
+                </article>
+                @}
+            </div>
+            <div class="col-sm-12 col-md-12 visible-md-block visible-lg-block " id="example" style="text-align: center">
+                <ul id="pageLimit"></ul>
+            </div>
+            <div class="col-xs-12 visible-xs-block visible-sm-block " id="example2" style="text-align: center">
+                <ul id="pageLimit2"></ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#pageLimit').bootstrapPaginator({
+                currentPage: 1,//当前的请求页面。
+                totalPages: '${page}',//一共多少页。
+                size: "small",//应该是页眉的大小。
+                bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                alignment: "right",
+                numberOfPages: 5,//一页列出多少数据。
+                itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                    switch (type) {
+                        case "first":
+                            return "<img src='${ctxPath}/static/images/icon/上页底.png'>";
+                        case "prev":
+                            return "<img src='${ctxPath}/static/images/icon/上一页.png'>";
+                        case "next":
+                            return "<img src='${ctxPath}/static/images/icon/下一页.png'>";
+                        case "last":
+                            return "<img src='${ctxPath}/static/images/icon/下页底.png'>";
+                        case "page":
+                            return page;
+                    }
+                },
+                onPageClicked: function (event, originalEvent, type, page) {//给每个页眉绑定一个ajax请求，其中page变量为当前点击的页上的数字。
+                    var classId = '${classId}';//分页按钮显示的是该类下的新闻
+                    var param = {'page': page, 'rows': 10, 'classId': classId};
+                    $.ajax({
+                        url: '/newsLists',
+                        type: "post",
+                        data: JSON.stringify(param),
+                        contentType: "application/json;charset=UTF-8",
+                        dataType: 'JSON',
+                        success: function (callback) {
+                            $('#media').empty();
+                            var list = callback.responselists;
+                            var num = (page - 1) * 10;
+                            for (var i = 0; i < list.length; i++) {
+                                var url = "/newsDetail/newsId" + list[i].id+".html";
+                                $('#media').append(' <article class="fade-in" style="background-color: #f3f3f3;margin-top: 25px;width: 100%;height: 160px" onmouseenter="this.style.backgroundColor=\'#cee7de\'"\n' +
+                                    '                             onmouseleave="this.style.backgroundColor=\'#f3f3f3\'" onclick="window.location.href=\'' + url + '\'">\n' +
+                                    '                        <!--pc端-->\n' +
+                                    '                        <div class="visible-lg-block visible-md-block" style="height: 100%;width: auto;color: #585858;cursor: pointer">\n' +
+                                    '                            <div class="col-md-2" style="height: 100%;">\n' +
+                                    '                                <span style="font-size: 30px;color:#50c9a0;margin-top: 13px ;margin-left:10px;font-weight: 500;display: block;">Q' + (num + i + 1) + '</span>\n' +
+                                    '                            </div>\n' +
+                                    '                            <div class="col-md-10" style="height: 100%">\n' +
+                                    '                                <div  style="margin-top: 20px;width: 95%">\n' +
+                                    '                                    <span id="' + i + '" style="display: inline-block;width:80%;font-size: 20px;color: #585858;white-space: nowrap;overflow: hidden;text-overflow: ellipsis" title="' + list[i].newsTitle + '">'
+                                    + list[i].newsTitle +
+                                    '</span>\n' +
+                                    '                                </div>\n' +
+                                    '                                <div class="question-lg">' + list[i].description + '</div>\n' +
+                                    '                            </div>\n' +
+                                    '                        </div>\n' +
+                                    '                        <!--移动端-->\n' +
+                                    '                    </article>');
+                                if (list[i].top == 1) {
+                                    $("#" + i).after(' <span  style="float: right"><img src="${ctxPath}/static/images/icon/top.png"></span>');
+                                }
+                            }
+                        }
+                    })
+                }
+            });
+            $('#pageLimit2').bootstrapPaginator({
+                currentPage: 1,//当前的请求页面。
+                totalPages: '${page}',//一共多少页。
+                //size:"large",//应该是页眉的大小。
+                bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                alignment: "right",
+                numberOfPages: 3,//一页列出多少数据。
+                itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                    switch (type) {
+                        case "first":
+                            return "首页";
+                        case "prev":
+                            return "<";
+                        case "next":
+                            return ">";
+                        case "last":
+                            return "尾页";
+                        case "page":
+                            return page;
+                    }
+                },
+                onPageClicked: function (event, originalEvent, type, page) {//给每个页眉绑定一个ajax请求，其中page变量为当前点击的页上的数字。
+                    var classId = '${classId}';//分页按钮显示的是该类下的新闻
+                    var param = {'page': page, 'rows': 10,'classId': classId};
+                    var num = (page - 1) * 10;
+                    $.ajax({
+                        url: '/newsLists',
+                        type: "post",
+                        data: JSON.stringify(param),
+                        contentType: "application/json;charset=UTF-8",
+                        dataType: 'JSON',
+                        success: function (callback) {
+                            $('#media').empty();
+                            var list = callback.responselists;
+                            for (var i = 0; i < list.length; i++) {
+                                var url = "/newsDetail/newsId" + list[i].id+".html";
+                                $('#media').append('     <article class="fade-in" style="background-color: #F1F1F1;width: 100%;height: 180px" onmouseenter="this.style.backgroundColor=\'#cee7de\'"\n' +
+                                    '                             onmouseleave="this.style.backgroundColor=\'#f1f1f1\'" onclick="window.location.href=\'' + url + '\'">\n' +
+                                    '                        <!--移动端-->\n' +
+                                    '                        <div class="visible-xs-block visible-sm-block col-xs-3" style="height: 100%;padding: 0px;background-color: white">\n' +
+                                    '<span style="color: #3A3A3A;font-size: 28px;font-weight: 700;margin-top: 8px;margin-left: 20%;display: inline-block">\n' +
+                                    'Q' + (i + num + 1) +
+                                    ' </span>\n' +
+                                    '                        </div>\n' +
+                                    '                        <div class="visible-xs-block visible-sm-block col-xs-9" style="height: 100%;background-color: white;">\n' +
+                                    '                            <div >\n' +
+                                    '                                <span class="title-xs">\n' +
+                                    list[i].newsTitle +
+                                    '                                </span>\n' +
+                                    '                            </div>\n' +
+                                    '                            <div class="content-xs" style="height: 60px" >\n' +
+                                    list[i].description +
+                                    '                            </div>\n' +
+                                    '                            <div style="color: #5c5c5c;width: 95%">\n' +
+                                    '                                <span class="views"  data-toggle="tooltip" data-placement="bottom" data-original-title="文章发表日期">\n' +
+                                    list[i].updateDatetime.split("T")[0]+
+                                    '                                </span>\n' +
+                                    '                                <span style="float: right;">' +
+                                    list[i].author +
+                                    '                                </span>\n' +
+                                    '                            </div>\n' +
+                                    '                        </div>\n' +
+                                    '                    </article>');
+
+                                if (list[i].top == 1) {
+                                    $("#" + i).after('<span style="display: block;position: absolute;right: 25px;bottom: 145px">' +
+                                        '<img src="${ctxPath}/static/images/icon/top.png">' +
+                                        '</span>');
+                                }
+
+                            }
+                        }
+                    })
+                }
+            });
+        });
+    </script>
+    <script>
+        var left = $("#news_list");
+        var win = $(window); //得到窗口对象
+        var sc = $(document);//得到document文档对象
+        win.scroll(function () {
+            var t2 = document.documentElement.scrollHeight;
+            var t1 = document.documentElement.scrollTop ;
+            var b = t2-t1;
+            console.log("距离底部距离："+ b);
+            navScroll(b);
+        });
+
+        function navScroll(bottom) {
+            if (sc.scrollTop() >= 500) {
+                if(bottom<1050){
+                    left.addClass("left_relative");
+                    left.removeClass("left_nav_class");
+                }else{
+                    left.addClass("left_nav_class");
+                    left.removeClass("left_relative")
+                    if (win.width < 768) {
+                        left.animate({display: 'none'}, 0)
+                    }
+                }
+            } else {
+                left.removeClass("left_relative")
+                left.removeClass("left_nav_class");
+            }
+        }
+    </script>
+</div>
+
+<!--footer-->
+@include("../_footer.html"){}
+<!--footer-->
+
+
+<script type="text/javascript" src="${ctxPath}/static/js/move-top.js"></script>
+<script type="text/javascript" src="${ctxPath}/static/js/easing.js"></script>
+<!-- here stars scrolling icon -->
+<script type="text/javascript" src="${ctxPath}/static/js/scroller-menu.js"></script>
+<!-- //here ends scrolling icon -->
+<!-- FlexSlider -->
+<script defer src="${ctxPath}/static/js/jquery.flexslider.js"></script>
+<!-- //FlexSlider -->
+</body>
+</html>

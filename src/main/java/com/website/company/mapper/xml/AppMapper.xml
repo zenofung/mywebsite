@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.website.company.mapper.AppMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.website.company.entity.App">
+        <id column="id" property="id"/>
+        <result column="code_img" property="codeImg"/>
+        <result column="detail_img" property="detailImg"/>
+        <result column="meta_desc" property="metaDesc"/>
+        <result column="title" property="title"/>
+        <result column="keywords" property="keywords"/>
+        <result column="banner_pic" property="bannerPic"/>
+        <result column="mobile_banner_pic" property="mobileBannerPic"/>
+        <result column="wechat_img" property="wechatImg"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, code_img, detail_img,meta_desc,title,keywords,banner_pic,mobile_banner_pic,wechat_img
+    </sql>
+
+</mapper>

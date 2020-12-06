@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.website.company.mapper.BannerInfoMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.website.company.entity.BannerInfo">
+        <id column="id" property="id"/>
+        <result column="create_datetime" property="createDatetime"/>
+        <result column="update_datetime" property="updateDatetime"/>
+        <result column="report_title" property="reportTitle"/>
+        <result column="report" property="report"/>
+        <result column="activity_title" property="activityTitle"/>
+        <result column="activity" property="activity"/>
+
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, create_datetime, update_datetime,report_title,report,activity_title,activity
+    </sql>
+
+    <select id="selectBannerList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from banner_info
+        order by update_datetime desc
+    </select>
+</mapper>

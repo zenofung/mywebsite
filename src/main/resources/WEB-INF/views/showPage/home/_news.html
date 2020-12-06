@@ -1,0 +1,136 @@
+<!-- 新闻资讯-->
+<div class="blog visible-lg-block visible-md-block" id="blog" style="background-color: #eeeeee">
+    <div class="container">
+        <div class="agileits-blog-grids">
+            <div class="wthree-heading">
+                <span style="font-size: 40px;color: #50C9A0;display: block">新闻资讯</span>
+                <span style="font-size: 20px;color: #50C9A0;display: block">INFORMATION</span>
+            </div>
+        </div>
+        <div class="posts-grids" id="ajaxNews">
+            <div class="col-md-4 w3-agile-post-grids col-sm-12">
+                <div style="border: 2px white dotted;margin-top: 9px;margin-bottom: 9px;">
+                    <div class="w3-agile-post-img w3-agile-post-img1">
+                        <div style="height: 3.0em;width: 100%;background-color: #50c9a0;line-height: 100%;padding: 8px">
+                            <span style="color: white;float:left;font-size:1.3em; font-weight: 500;padding: 0.3em">${news1.newsClassName}</span>
+                            <span style="color: white;float:right;font-size: 1.2em;padding: 0.3em;"><a href="/newsListPage/${news1.id}.html">more+</a></span>
+                        </div>
+                        <a href="/newsListPage/${news1.id}.html" style='background: url("${news1.pic}") no-repeat 0px 0px;background-size: cover;margin-left: 16px;margin-right:16px;'></a>
+                    </div>
+                    <div style="background-color:#50c9a0;width: 100%;height: 22em;overflow:hidden">
+                        <ul style="margin-left: -36px;" class="${news1.newsClassName}">
+                            @for(new in @news1.getList()){
+                            <li style="width: 95%;margin:auto auto;height: 3em;line-height: 2em;padding: 0;display: block;overflow: hidden">
+                                <div>
+                                    <div class="col-sm-2 col-xs-2" style="overflow: hidden;margin-top: 1em">
+                                        <span style="display: inline-block;width: 25px;height: 25px;background-color: white;color: black;border-radius: 50%;text-align: center;font-weight: 600;">问</span>
+                                    </div>
+                                    <div class="col-sm-10 col-xs-10"style="margin-top: 1em"><a style="color: white;font-weight:600;text-decoration: none" href="/newsDetail/newsId${new.id}.html">${new.newsTitle}</a></div>
+                                </div>
+                            </li>
+                            <li style="width: 95%;margin:auto auto;height: 8em;line-height: 2em;padding: 0;display: block;border-bottom: 2px dotted white;overflow: hidden">
+                                <div>
+                                    <div class="col-sm-2 col-xs-2" style="text-overflow: ellipsis">
+                                        <span style="display: inline-block;width: 25px;height: 25px;background-color: white;color: black;border-radius: 50%;text-align: center;font-weight: 600;">答</span>
+                                    </div>
+                                    <div class="col-sm-10 col-xs-10"><a style="color: white;text-decoration: none;font-size: 13px" href="/newsDetail/newsId${new.id}.html">${new.description}</a></div>
+                                </div>
+                                <!--<a style="color: white;text-decoration: none" href="#">${new.newsTitle}</a>-->
+                            </li>
+                            @}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 w3-agile-post-grids col-sm-12">
+                <div style="border: 2px white dotted;margin-top: 9px;margin-bottom: 9px;">
+                    <div class="w3-agile-post-img w3-agile-post-img1">
+                        <div style="height: 3.0em;width: 100%;background-color: #50c9a0;line-height: 100%;padding: 8px">
+                            <span style="color: white;float:left;font-size:1.3em; font-weight: 500;padding: 0.3em">${news2.newsClassName}</span>
+                            <span style="color: white;float:right;font-size: 1.2em;padding: 0.3em;"><a href="/newsListPage/${news2.id}.html">more+</a></span>
+                        </div>
+                        <a href="/newsListPage/${news2.id}.html" style='background: url("${news2.pic}") no-repeat 0px 0px;background-size: cover;margin-left: 16px;margin-right:16px;'></a>
+                    </div>
+                    <div style="background-color:#50c9a0;width: 100%;height: 22em;overflow:hidden">
+                        <ul style="margin-left: -36px;" class="${news2.newsClassName}">
+                            @for(new in @news2.getList()){
+                            <li style="margin:auto auto;width: 95%;height: 3em;line-height: 2em;padding: 0;display: block;overflow: hidden;;border-bottom: 2px dotted white">
+                                <div>
+                                    <div class="col-sm-12" style="margin-top: 0.5em">
+                                        <a style="color: white;font-weight:600;text-decoration: none" href="/newsDetail/newsId${new.id}.html">${new.newsTitle}</a>
+                                    </div>
+                                </div>
+                                <!--<a style="color: white;text-decoration: none" href="#">${new.newsTitle}</a>-->
+                            </li>
+                            @}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 w3-agile-post-grids col-sm-12">
+                <div style="border: 2px white dotted;margin-top: 9px;margin-bottom: 9px;">
+                    <div class="w3-agile-post-img w3-agile-post-img1">
+                        <div style="height: 3.0em;width: 100%;background-color: #50c9a0;line-height: 100%;padding: 8px">
+                            <span style="color: white;float:left;font-size:1.3em; font-weight: 500;padding: 0.3em">${news3.newsClassName}</span>
+                            <span style="color: white;float:right;font-size: 1.2em;padding: 0.3em;"><a href="/newsListPage/${news3.id}.html">more+</a></span>
+                        </div>
+                        <a href="/newsListPage/${news3.id}.html" style='background: url("${news3.pic}") no-repeat 0px 0px;background-size: cover;margin-left: 16px;margin-right:16px;'></a>
+                    </div>
+                    <div style="background-color:#50c9a0;width: 100%;height: 22em;overflow:hidden">
+                        <ul style="margin-left: -36px;" class="${news3.newsClassName}">
+                            @for(new in @news3.getList()){
+                            <li style="margin:auto auto;width: 95%;height: 3em;line-height: 2em;padding: 0;display: block;overflow: hidden;;border-bottom: 2px dotted white">
+                                <div>
+                                    <div class="col-sm-12" style="margin-top: 0.5em">
+                                        <a style="color: white;font-weight:600;text-decoration: none" href="/newsDetail/newsId${new.id}.html">${new.newsTitle}</a>
+                                    </div>
+                                </div>
+                                <!--<a style="color: white;text-decoration: none" href="#">${new.newsTitle}</a>-->
+                            </li>
+                            @}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+
+        </div>
+    </div>
+</div>
+<!-- //新闻资讯-->
+
+<!--mobile -->
+<div class="blog visible-xs-block visible-sm-block" style="background-color: #EEEEEE;padding-top: 20px;height: 570px;">
+    <div class="container" id="mobileAjax">
+        <div>
+            <span class="mobile-title1">紧迫领域最新成就</span>
+            <span class="mobile-title2">恭逸邀您畅享科技前沿</span>
+        </div>
+        <div class="flex-layout" style="background: url(${news1.mobilePic})no-repeat 0 0;background-size:cover;">
+            <div onclick="window.location.href='/newsListPage?classId=${news1.id}'">
+                <span style="font-size: 25px;color: white">${news1.newsClassName}</span><img src="${ctxPath}/static/images/mobile/icon/箭头2.png" style="height: 25px;margin-bottom: 12px;padding-left: 12px;">
+            </div>
+        </div>
+        <div class="flex-layout" style="background: url(${news2.mobilePic})no-repeat 0 0;background-size:cover">
+            <div  onclick="window.location.href='/newsListPage?classId=${news2.id}'">
+                <span style="font-size: 25px;color: white">${news2.newsClassName}</span><img src="${ctxPath}/static/images/mobile/icon/箭头2.png" style="height: 25px;margin-bottom: 12px;padding-left: 12px;">
+            </div>
+        </div>
+        <div class="flex-layout" style="background: url(${news3.mobilePic})no-repeat 0 0;background-size:cover">
+            <div  onclick="window.location.href='/newsListPage?classId=${news3.id}'">
+                <span style="font-size: 25px;color: white">${news3.newsClassName}</span><img src="${ctxPath}/static/images/mobile/icon/箭头2.png" style="height: 25px;margin-bottom: 12px;padding-left: 12px;">
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--//mobile -->
+
+<!--<script type="text/javascript">-->
+<!--$(function(){-->
+<!--$.get("${ctxPath}/ajaxNews",function (data) {-->
+<!--$("#ajaxNews").html(data);-->
+<!--console.info(data);-->
+<!--});-->
+<!--});-->
+<!--</script>-->

@@ -1,0 +1,85 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+    application:
+      name: mywebsite
+    datasource:
+      name: druidDataSource
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/website?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=GMT%2B8&autoReconnect=true
+      username: qsz
+      password: QSZ2020
+      type: com.alibaba.druid.pool.DruidDataSource
+      #   数据源其他配置
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+  #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: stat,wall,log4j
+      maxPoolPreparedStatementPerConnectionSize: 20
+      useGlobalDataSourceStat: true
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+
+    devtools:
+        restart:
+          enabled: true
+          additional-paths: src/main/java
+          exclude: /WEB-INF,/static
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: update
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    mvc:
+      static-path-pattern: /static/**
+      view:
+        prefix:
+    http:
+      encoding:
+        force: true
+        charset: UTF-8
+        enabled: true
+    redis:
+      database: 0
+      host: 47.114.3.173
+      port: 6379
+      password: fpc
+      jedis:
+        pool:
+          max-active: 8
+          max-idle: 500
+          max-wait: 10000
+      timeout: 0
+
+    aop:
+      proxy-target-class: true
+    cache:
+      type: redis
+
+
+mybatis:
+  mapper-locations: classpath:/com/website/company/mapper/xml/*Mapper.xml
+  type-aliases-package: com.website.company.entity
+  configuration:
+    cache-enabled: true
+
+logging:
+  level:
+    com.website.company: debug
+
+
+

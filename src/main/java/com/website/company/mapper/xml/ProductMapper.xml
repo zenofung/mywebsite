@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.website.company.mapper.ProductMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.website.company.entity.Product">
+        <id column="id" property="id"/>
+        <result column="create_datetime" property="createDatetime"/>
+        <result column="update_datetime" property="updateDatetime"/>
+        <result column="detail" property="detail"/>
+        <result column="function_class_id" property="functionClassId"/>
+        <result column="keywords" property="keywords"/>
+        <result column="main_description" property="mainDescription"/>
+        <result column="pic" property="pic"/>
+        <result column="long_pic" property="longPic"/>
+        <result column="product_name" property="productName"/>
+        <result column="attribute" property="attribute"/>
+        <result column="product_class_name" property="productClassName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, create_datetime, update_datetime, detail,
+        function_class_id,keywords,main_description,pic,long_pic,product_name,attribute,product_class_name
+    </sql>
+
+    <select id="allproduct" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product order by update_datetime desc
+    </select>
+
+    <select id="getProductList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product order by update_datetime desc limit 12
+    </select>
+
+
+    <select id="findProductCount" resultType="java.lang.Integer">
+        select count(1) from product as a
+        left join product_function_relation as b on a.id = b.product_id
+        where b.function_id = ${productSearchDTO.getFunctionId()}
+        <if test="productSearchDTO.getKeywords() != null">
+            and a.keywords like '%${productSearchDTO.getKeywords()}%'
+        </if>
+        <!--and a.keywords like '%${productSearchDTO.getKeywords()}%'-->
+    </select>
+
+    <select id="findProductPage" resultMap="BaseResultMap">
+        select a.* from product as a
+        left join product_function_relation as b on a.id = b.product_id
+        where b.function_id = ${productSearchDTO.getFunctionId()}
+        <if test="productSearchDTO.getKeywords() != null">
+            and a.keywords like '%${productSearchDTO.getKeywords()}%'
+        </if>
+        order by a.update_datetime DESC
+        Limit ${productSearchDTO.getPage()},${productSearchDTO.getRows}
+    </select>
+
+    <select id="getbyFunction" resultMap="BaseResultMap">
+        select p.* from product p where p.function_class_id=#{functionId} order by p.update_datetime desc limit #{num};
+    </select>
+
+    <select id="getByKeyword" resultMap="BaseResultMap">
+        select p.* from product p where p.keywords like "%${keyword}%" or p.detail like "%${keyword}%" or p.product_name
+        like "%${keyword}%" order by p.update_datetime desc ;
+    </select>
+
+    <select id="rssProductAll" resultMap="BaseResultMap">
+        select
+        p.id,p.product_name,p.update_datetime,p.create_datetime
+        from product p
+        order by p.update_datetime desc
+    </select>
+</mapper>

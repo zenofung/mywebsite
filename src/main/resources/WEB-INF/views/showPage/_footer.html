@@ -1,0 +1,139 @@
+<!-- copyright -->
+<footer style="background-color: #1f1d1d;">
+    <div class="container visible-md-block visible-lg-block">
+        <div class="row" style="color: #e4e4e4">
+
+            <div class="col-xs-12 col-sm-4 col-md-4 text-left fade-in" id="navDiv">
+
+                <span style="font-size: 16px;font-weight:700;color:#e4e4e4;padding-left: 15px;display: block;margin-bottom: 10px ">网站导航</span>
+                @for(item in navList!){
+                <div class="col-xs-6 col-md-6">
+                    <span><a style="color: #e4e4e4" href="${item.navUrl}">${item.navName}</a></span>
+                </div>
+                @}
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 text-left fade-in">
+                <span style="font-size: 16px;font-weight:700;color:#e4e4e4;padding-left: 15px;display: block;margin-bottom: 10px">联系我们</span>
+                <div class="col-md-12">
+                    <span style="vertical-align:top"><img src="${ctxPath}/static/images/icon/zuojibai.png"></span>
+                    <span style="vertical-align:top"><a style="color: #e4e4e4;vertical-align:top" href="#">${linkUs.phone}</a></span>
+                </div>
+                <div class="col-md-12">
+                    <span style="vertical-align:top"><img src="${ctxPath}/static/images/icon/phonebai.png"></span>
+                    <span style="vertical-align:top"><a style="color: #e4e4e4" href="#">${linkUs.tel}</a></span>
+                </div>
+                <div class="col-md-12">
+                    <span style="vertical-align:top"><img src="${ctxPath}/static/images/icon/localtionbai.png"></span>
+                    <span style="vertical-align:top"><a style="color: #e4e4e4" href="#">${linkUs.addr}</a></span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 text-left fade-in">
+                <div class="col-xs-6 col-md-6" style="text-align: center">
+                    <img src="${appImg.codeImg}" style="width: 100px;height: 100px;display: block;margin-left:16%">
+                    <h5>APP下载</h5>
+                </div>
+                <div class="col-xs-6 col-md-6" style="text-align: center">
+                    <img src="${appImg.wechatImg}" style="width: 100px;height: 100px;display: block;margin-left:16%">
+                    <h5>微信公众号</h5>
+                </div>
+            </div>
+        </div>
+        <hr style="background-color: #747474;height: 1px;opacity: 0.4"/>
+        <div class="row ">
+            <div class="col-md-7  ">
+                <p style="padding-left:20px;width: 90%;color: #E4E4E4">Copyright &copy; www.gongyitech.com</p>
+                <p style="padding-left:20px;width: 90%;color: #e4e4e4" onclick="window.open('http://www.miitbeian.gov.cn','_blank')">渝ICP备18002157号-3&ensp;&ensp;重庆恭逸科技有限公司2016-2019版权所有
+                    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1276633811'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s23.cnzz.com/z_stat.php%3Fid%3D1276633811%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+                </p>
+
+            </div>
+            <div class="col-md-5 text-right"><img style="padding-right:20px;width: 120px;height: 30px;color: #E4E4E4"
+                                                  src="${ctxPath}/static/images/logo.png"></div>
+        </div>
+    </div>
+    <div class="container visible-xs-block visible-sm-block" style="margin-bottom: 60px;margin-top: 20px">
+        @for(item in navList){
+        <a href="${item.navUrl}" class="footer-nav">
+            <span> ${item.navName}</span>
+            <i class="fa fa-angle-right" aria-hidden="true" style="font-size: 40px;color: white;float: right"></i>
+        </a>
+        @}
+
+        <hr style="color: #999;height: 1px;margin-top: 36px;">
+        <div style="margin-top: 24px;margin-bottom: 24px;position: relative;">
+            <ul style="color: #999;font-size: 12px;list-style: none;padding-left: 0px">
+                <li>Copyright &copy; http//www.gongyitech.com</li>
+                <li>渝ICP备180238048</li>
+                <li>重庆恭逸科技有限公司2016-2019版权所有</li>
+            </ul>
+            <img src="${ctxPath}/static/images/logo.png" width="100px" style="position: absolute;right: 5px;top: 10px;">
+        </div>
+        <hr style="color: #999;height: 1px">
+
+        <div class="row" style="color: #999;text-align: center">
+            <div class="col-xs-3" style="border-right: 1px solid white"><a style="color: #fff" href="/area">企业分站</a>
+            </div>
+            <div class="col-xs-3" style="border-right: 1px solid white"><a style="color: #fff" href="/sitemap?moblie=1">网站地图</a>
+            </div>
+            <div class="col-xs-3" style="border-right: 1px solid white"><a style="color: #fff" href="/rss.xml">RSS</a>
+            </div>
+            <div class="col-xs-3"><a style="color: #fff" href="/sitemap.xml">XML</a></div>
+        </div>
+    </div>
+    <div class="container-fluid visible-xs-block visible-sm-block footer_text_icon"
+         style="position: fixed;bottom: 0;z-index: 999">
+        <div class="col-xs-3 footer_padding" onclick="window.location.href='/index'">
+            <div class="col-xs-12">
+                <img src="/static/images/mobile/home/footer/主页.png" style="width: 32px;height: 32px">
+            </div>
+            <div class="col-xs-12 footer_text" style="text-overflow: ellipsis;overflow: hidden">
+                主页
+            </div>
+        </div>
+        <div class="col-xs-3 footer_padding" onclick="window.location.href='/app'">
+            <div class="col-xs-12">
+                <img src="/static/images/mobile/home/footer/APP下载.png" style="width: 32px;height: 32px">
+            </div>
+            <div class="col-xs-12 footer_text" style="text-overflow: ellipsis;overflow: hidden">
+                APP
+            </div>
+        </div>
+        <div class="col-xs-3 footer_padding" onclick="window.location.href='/message'">
+            <div class="col-xs-12">
+                <img src="/static/images/mobile/home/footer/留言.png" style="width: 32px;height: 32px">
+            </div>
+            <div class="col-xs-12 footer_text" style="text-overflow: ellipsis;overflow: hidden">
+                留言
+            </div>
+        </div>
+        <div class="col-xs-3 footer_padding">
+            <a href="tel:${linkUs.phone}" style="color:#50c9a0 ">
+                <div class="col-xs-12">
+                    <img src="/static/images/mobile/home/footer/电话.png" style="width: 32px;height: 32px">
+                </div>
+                <div class="col-xs-12 footer_text" style="text-overflow: ellipsis;overflow: hidden">
+                    电话
+                </div>
+            </a>
+        </div>
+    </div>
+</footer>
+<!-- gongyitech.com Baidu tongji analytics -->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?5d38368afc73cc09ae9951f1d236edfc";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+<!--<script type="text/javascript">-->
+<!--$(function () {-->
+<!--$.get("/footer_nav",function (data) {-->
+<!--$("#navDiv").html(data);-->
+<!--console.info(data)-->
+<!--});-->
+<!--});-->
+<!--</script>-->
+<!-- //copyright -->

@@ -1,0 +1,109 @@
+<!-- banner -->
+<div class="banner-top visible-md-block visible-lg-block" >
+    <div class="callbacks_container" style="position: relative">
+        <div style="position: absolute;width: 19%;height: 67%;background-color: rgba(0, 0, 0, 0.4);bottom: 0;left: 18%;z-index: 999;">
+            <div style="width: 100%;text-align: right">
+                <h1 style="color: #50c9a0;margin-top: 36px;padding-left: 60px;word-wrap:break-word;padding-right: 20px">
+                    ${companyInfo.attractTitle}</h1>
+                <div style="text-align:left;color: white;font-size:17px;padding-right: 20px;padding-left:46px;margin-top: 5px;word-wrap:break-word;">
+                    ${companyInfo.attractContent}
+                </div>
+            </div>
+        </div>
+        <div style="position: absolute;width: 55%;height: 19.2%;background-color: rgba(80, 201, 160, 0.5);bottom: 0;left: 21%;z-index: 999;">
+            <div class="col-md-3" style="text-align: center;color: white;">
+                <div style="margin-top: 62px;margin-right: -57px">
+                    <h4 style="padding: 0;font-size: 18px;margin: 0">NOTICE / EVENTS</h4>
+                    <div>
+                        <span style="padding: 0;font-size: 20px;margin: 0;line-height: 22px">公告 / 活动</span>
+                        <img id="pre" src="${ctxPath}/static/images/pc/icon/左翻页.png"
+                             style="width: 20px;height: 20px;display: inline-block;margin-top: -4px;cursor: pointer">
+                        <img id="last" src="${ctxPath}/static/images/pc/icon/右翻页.png"
+                             style="width: 20px;height: 20px;display: inline-block;margin-top: -4px;cursor: pointer">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="color: white">
+                <ul id="report" style="list-style: none">
+                    @for(item in bannerInfo){
+                    @if(itemLP.index == 1){
+                    <li class="show">
+                        <div class="col-md-6">
+                            <span class="banner-activity-title">${item.reportTitle}</span>
+                            <span class="banner-activity-content">${item.report}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="banner-activity-title">${item.activityTitle}</span>
+                            <span class="banner-activity-content">${item.activity}</span>
+                        </div>
+                    </li>
+                    @} else{
+                    <li class="hide">
+                        <div class="col-md-6">
+                            <span class="banner-activity-title">${item.reportTitle}</span>
+                            <span class="banner-activity-content">${item.report}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="banner-activity-title">${item.activityTitle}</span>
+                            <span class="banner-activity-content">${item.activity}</span>
+                        </div>
+                    </li>
+                    @}
+                    @}
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <div style="width: 100%;text-align: left;margin-top: 35px;font-size: 16px">
+                    <div class="row" style="text-align: left">
+                        <span style="vertical-align:top"><img src="${ctxPath}/static/images/pc/icon/座机.png"></span>
+                        <span style="vertical-align:top">
+                                <a style="color: #ffffff;vertical-align:top" href="#">${linkUs.phone}
+                                </a>
+                            </span>
+                    </div>
+                    <div class="row" style="text-align: left">
+                        <span style="vertical-align:top"><img src="${ctxPath}/static/images/pc/icon/电话.png"></span>
+                        <span style="vertical-align:top"><a style="color: #ffffff" href="#">${linkUs.tel}</a></span>
+                    </div>
+                    <div class="row" style="text-align: left">
+                        <span style="vertical-align:top"><img src="${ctxPath}/static/images/pc/icon/坐标.png"></span>
+                        <span style="vertical-align:top"><a style="color: #ffffff" href="#">${linkUs.addr}</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider">
+            <ul class="rslides callbacks callbacks1" id="slider4">
+                @for (item in bannerPic){
+                <li>
+                    <div class="jarallax"
+                         style="background: url(${item.pic}) no-repeat 0 0; background-size: cover; height: 870px">
+                    </div>
+                </li>
+                @}
+            </ul>
+
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+<!-- //banner -->
+
+<!--mobile -->
+<div class="visible-sm-block visible-xs-block banner-test-height" style='background-color: #b2dba1;width: 100%;'>
+    <div class="callbacks_container" style="height: 100%;width: 100%">
+        <div class="slider" style="height: 100%;width: 100%">
+            <ul class="rslides callbacks callbacks1" id="slider5" style="height: 100%;width: 100%">
+                @for (item in bannerPic){
+                <li style="height: 100%;width: 100%">
+                    <img src="${item.mobilePic}" alt="恭逸科技" style="width: 100%;height: 100% ">
+                </li>
+                @}
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<!-- //mobile -->

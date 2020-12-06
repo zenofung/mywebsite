@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>${title}</title>
+    <meta name=”keywords” content=”${keywords}”/>
+    <meta name="description" content="${description}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <link rel="icon" type="image/x-icon" href="${ctxPath}/static/faviconTitle.ico"/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!-- bootstrap-css -->
+    <link href="${ctxPath}/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
+    <!--// bootstrap-css -->
+
+    <!-- css -->
+    <link rel="stylesheet" href="${ctxPath}/static/css/style.css" type="text/css" media="all"/>
+    <link href="${ctxPath}/static/css/zhyd.comment.css" rel="stylesheet">
+    <link href="${ctxPath}/static/css/zhyd.core.css" rel="stylesheet">
+
+    <!--// css -->
+
+    <!-- font-awesome icons -->
+    <link href="${ctxPath}/static/css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <script src="${ctxPath}/static/js/jquery-1.11.1.min.js"></script>
+    <script src="${ctxPath}/static/js/bootstrap.js"></script>
+
+    <script src="${ctxPath}/static/js/bootstrap-paginator.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
+            });
+        });
+    </script>
+    <!-- flexslider -->
+    <link rel="stylesheet" href="${ctxPath}/static/css/flexslider.css" type="text/css" media="screen"/>
+    <!-- //flexslider -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--banner-->
+@include("../_header.html",{current:className}){}
+<div class="banner-top visible-lg-block visible-md-block"
+     style="background: url(${productClass.pic}) no-repeat 0 0;background-size: cover ;height: 570px">
+</div>
+<div class="banner-top visible-xs-block visible-sm-block"
+     style="height: 300px;background: url(${productClass.mobileBannerPic}) no-repeat 0 ;background-size: cover ">
+</div>
+<!--//banner-->
+
+<div class="container-fluid" style="background-color: #EEEEEE;padding: 0">
+    <div class="container" style="margin-top: 10px;position: relative">
+        <div class="col-md-3 visible-md-block visible-lg-block" style="position: static">
+            <div id="product" style="z-index: 999;width: 200px;opacity: 0.8">
+                <div style="background-color:#f8f8f8;color: #3a3a3a;">
+                    <div style="font-weight: 400;font-size: 18px; text-align:center;line-height:35px;background-color: #50c9a0;">
+                        <span style="color: white">产品分类</span>
+                    </div>
+                    <div id="functionClass" style="width: 100%;text-align: center;font-size: 16px">
+                        @for(class in classList){
+                        @if(classLP.last){
+                        <div style="width: 100%;line-height: 35px;"><a class="a_classname"
+                                                                       href="/product/list/${class.id}.html"
+                                                                       style="color:#3f3f3f;font-weight: 500">${class.name}</a>
+                        </div>
+                        @}else{
+                        <div style="width: 100%;line-height: 35px;"><a class="a_classname"
+                                                                       href="/product/list/${class.id}.html"
+                                                                       style="color:#3f3f3f;font-weight: 500">${class.name}</a>
+                        </div>
+                        <hr style="margin:0 43% 0 43%;background-color: #50C9A0;height: 1px"/>
+                        @}
+                        @}
+                    </div>
+                </div>
+                <script>
+                    var els = document.getElementsByClassName("a_classname");
+                    $(els).each(function (i) {
+                        if ($(els)[i].innerText == "${className}") {
+                            $($(els)[i]).addClass("product-class-color")
+                        }
+                    });
+                </script>
+                @include("../container_left.html"){}
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="visible-lg-block visible-md-block" style="height: 40px;width: 100%;line-height: 40px">
+                <div style="display: inline-block;border-left:8px solid #50c9a0;padding-left: 8px;height: 35px">
+                    <span style="margin: 0;font-size: 21px;color: #474747">${className}</span>
+                </div>
+                <!--面包屑 -->
+                <div style="display: inline-block;float: right">
+                    <ul style="list-style: none">
+                        <li style="display: inline-block;">
+                            <span style="color:#464646 ">您当前的位置：</span>
+                            <a href="/index"
+                               style="color: #464646; text-decoration: none;font-family: 'Roboto', sans-serif;">首页</a>
+                            <span style="color:#464646 "> &nbsp>>&nbsp </span>
+                        </li>
+                        <li style="display: inline-block;color: #464646;font-family: 'Open Sans', sans-serif;letter-spacing: 1px">
+                            ${className}
+                        </li>
+                    </ul>
+                </div>
+                <!--//面包屑 -->
+            </div>
+            <div class="visible-lg-block visible-md-block" style="margin-top: 15px;padding: 19px 30px 5px 30px">
+                <p style="color: #959595">${productClass.description}</p>
+            </div>
+            <!--pc-->
+            <div id="productContent" class="visible-md-block visible-lg-block" style="margin-top: 25px">
+                @for(item in @responseList.getResult()){
+                <div class="col-md-4 ">
+                    <a href="/product/detail/${item.id}.html">
+                        <div class="panel panel-default product-item" style="position: relative">
+                            <div class="panel-body product-item-padding" style="text-align: center">
+                                <img src="${item.pic}" style="width: 100%;" alt="${item.productName}">
+                            </div>
+                            <div class="product-item-foot-text">
+                                <span>${item.productName}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                @}
+            </div>
+            <div class="col-md-12 visible-lg-block visible-md-block" style="text-align: center;">
+                <ul id="pageLimit"></ul>
+            </div>
+            <!--mobile-->
+            <div class="visible-xs-block visible-sm-block" style="margin-top: 20px">
+                <span class="mobile-title1">APP一站式检测身体健康指标</span>
+                <span class="mobile-title2">不止于方便&ensp;可以体验的${className}</span>
+            </div>
+            <div id="productContent2" class="visible-xs-block visible-sm-block">
+                @for(item in @responseList.getResult()){
+                <div class="mobile-product-div">
+                    <a href="/product/detail/${item.id}.html">
+                        <div class="mobile-product-div1">
+                            <img src="${item.pic}" style="width: 62%;" alt="${item.productName}">
+                        </div>
+                        <div class="mobile-product-div2">
+                            <span class="mobile-btn-span">${item.productName}</span>
+                            <img class="mobile-btn-img" src="${ctxPath}/static/images/mobile/icon/箭头.png"/>
+                        </div>
+                    </a>
+                </div>
+                @}
+            </div>
+            <div class=" visible-xs-block visible-sm-block " id="example2" style="text-align: center">
+                <ul id="pageLimit2"></ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        var options = {
+            currentPage: '${responseList.page}',//当前的请求页面。
+            totalPages: '${responseList.totalPage}',//一共多少页。
+            size: "small",//应该是页眉的大小。
+            bootstrapMajorVersion: 3,//bootstrap的版本要求。
+            alignment: "right",
+            numberOfPages: 10,//最多列出页数。
+            itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                switch (type) {
+                    case "first":
+                        return "<img src='${ctxPath}/static/images/icon/上页底.png'>";
+                    case "prev":
+                        return "<img src='${ctxPath}/static/images/icon/上一页.png'>";
+                    case "next":
+                        return "<img src='${ctxPath}/static/images/icon/下一页.png'>";
+                    case "last":
+                        return "<img src='${ctxPath}/static/images/icon/下页底.png'>";
+                    case "page":
+                        return page;
+                }
+            },
+            onPageClicked: function (event, originalEvent, type, page) {
+                var className = '${className}';
+                var params = {'page': page, 'rows': 9, 'className': className};
+                $.ajax({
+                    url: "/product/ajaxList",
+                    type: "post",
+                    data: JSON.stringify(params),
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $('#productContent').empty();
+                        var html = '';
+                        $.each(data.result, function (index, product) {
+                            html += '<div class="col-md-4">\n' +
+                                '<a href="/product/detail/' + product['id'] + '">\n' +
+                                '                <div class="panel panel-default product-item" style="position: relative">\n' +
+                                '                    <div class="panel-body product-item-padding" style="text-align: center">\n' +
+                                '                        <img src="' + product['pic'] + '" style="width: 100%;" alt="' + product['productName'] + '">\n' +
+                                '                    </div>\n' +
+                                '<div class="product-item-foot-text">\n' +
+                                '<span>' + product['productName'] + '</span>\n' +
+                                '</div>\n' +
+                                '                </div>\n' +
+                                '               </a>\n' +
+                                '            </div>';
+                            $("#productContent").html(html);
+                        })
+                    }
+                });
+
+            }
+        };
+        var options2 = {
+            currentPage: '${responseList.page}',//当前的请求页面。
+            totalPages: '${responseList.totalPage}',//一共多少页。
+            // size: "small",//应该是页眉的大小。
+            bootstrapMajorVersion: 3,//bootstrap的版本要求。
+            alignment: "right",
+            numberOfPages: 3,//最多列出页数。
+            itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                switch (type) {
+                    case "first":
+                        return "首页";
+                    case "prev":
+                        return "<";
+                    case "next":
+                        return ">";
+                    case "last":
+                        return "尾页";
+                    case "page":
+                        return page;
+                }
+            },
+            onPageClicked: function (event, originalEvent, type, page) {
+                var className = '${className}';
+                var params = {'page': page, 'rows': 9, 'className': className};
+                $.ajax({
+                    url: "/product/ajaxList",
+                    type: "post",
+                    data: JSON.stringify(params),
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $('#productContent2').empty();
+                        var list = data.result;
+                        for (var i = 0; i < list.length; i++) {
+                            var url = "/product/detail/" + list[i].id;
+                            $('#productContent2').append(' <div class="mobile-product-div" >\n' +
+                                '                        <a href="' + url + '">\n' +
+                                '                            <div class="mobile-product-div1" >\n' +
+                                '                                <img src="' + list[i].pic + '" style="width: 70%;" alt="' + list[i].productName + '">\n' +
+                                '                            </div>\n' +
+                                '                            <div class="mobile-product-div2">\n' +
+                                '                                <span class="mobile-btn-span">' + list[i].productName + '</span>\n' +
+                                '                                <img class="mobile-btn-img" src="${ctxPath}/static/images/mobile/icon/箭头.png"/>\n' +
+                                '                            </div>\n' +
+                                '                        </a>\n' +
+                                '                    </div>')
+                        }
+
+                    }
+                });
+
+            }
+        };
+        $(document).ready(function () {
+            $('#pageLimit').bootstrapPaginator(options);
+            $('#pageLimit2').bootstrapPaginator(options2);
+        })
+
+    </script>
+    <script>
+        var left = $("#product");
+        var win = $(window); //得到窗口对象
+        var sc = $(document);//得到document文档对象
+        win.scroll(function () {
+            var t2 = document.documentElement.scrollHeight;
+            var t1 = document.documentElement.scrollTop ;
+            var b = t2-t1;
+            console.log("距离底部距离："+ b);
+            navScroll(b);
+        });
+
+        function navScroll(bottom) {
+            if (sc.scrollTop() >= 500) {
+                if(bottom<1050){
+                    left.addClass("left_relative");
+                    left.removeClass("left_nav_class");
+                }else{
+                    left.addClass("left_nav_class");
+                    left.removeClass("left_relative")
+                    if (win.width < 768) {
+                        left.animate({display: 'none'}, 0)
+                    }
+                }
+            } else {
+                left.removeClass("left_relative");
+                left.removeClass("left_nav_class");
+            }
+        }
+    </script>
+</div>
+
+<!-- footer -->
+@include("../_footer.html"){}
+<!-- //footer -->
+
+<script src="${ctxPath}/static/js/jarallax.js"></script>
+<script src="${ctxPath}/static/js/SmoothScroll.min.js"></script>
+<script type="text/javascript">
+    /* init Jarallax */
+    $('.jarallax').jarallax({
+        speed: 0.5,
+        imgWidth: 1366,
+        imgHeight: 768
+    })
+</script>
+<script src="${ctxPath}/static/js/responsiveslides.min.js"></script>
+<script type="text/javascript" src="${ctxPath}/static/js/move-top.js"></script>
+<script type="text/javascript" src="${ctxPath}/static/js/easing.js"></script>
+<!-- here stars scrolling icon -->
+<script type="text/javascript" src="${ctxPath}/static/js/scroller-menu.js"></script>
+<!-- //here ends scrolling icon -->
+<!-- FlexSlider -->
+<script defer src="${ctxPath}/static/js/jquery.flexslider.js"></script>
+<!-- //FlexSlider -->
+</body>
+</html>

@@ -1,0 +1,138 @@
+
+<nav id="topmenu" class="visible-lg-block visible-md-block navbar navbar-default navbar-fixed-top" style="background-color: rgba(133, 203, 177, 0.9);height: 30px">
+    <div class="visible-lg-block visible-md-block menu-box">
+        <div class="pull-left">
+            <ul class="list-unstyled list-inline">
+                <li><span id="currentTime" style="color: white">欢迎访问恭逸科技官方网站!</span></li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="menu-topmenu-container pull-right">
+            <ul class="list-unstyled list-inline pull-left">
+                <li>
+                    <a href="/area.html" class="menu_a" style="color:white">企业分站 |</a>
+                </li>
+                <li>
+                    <a href="/sitemap.html" class="menu_a" style="color:white"> 网站地图 |</a>
+                </li>
+                <li>
+                    <a href="/rss.xml" class="menu_a" style="color:white"> RSS |</a>
+                </li>
+                <li>
+                    <a href="/sitemap.xml" class="menu_a" style="color:white"> XML |</a>
+                </li>
+                <li>
+                    @if(messageCount == 0){
+                    <span class="menu_a dashboard" style="color:white"> 询盘信息！</span>
+                    @}else{
+                    <span class="menu_a dashboard" style="color:white"> 您有${messageCount}条询盘信息！</span>
+                    @}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<nav id="mainmenu" class="visible-lg-block visible-md-block navbar navbar-default navbar-fixed-top" role="navigation" style="top: 30px; z-index: 998;height: 70px;background: rgba(0,0,0,0.2)">
+    <div class="menu-box" style="background: rgba(0,0,0,0.4)">
+        <div class="container-fluid" style="height: 70px">
+            <div class="navbar-header">
+                <a type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <img src="/static/images/mobile/icon/汉堡包.png" width="28px">
+                </a>
+                <span class="pull-right nav-search toggle-search" data-toggle="modal" data-target="#myModal"><img src="/static/images/mobile/icon/搜索（白）.png" width="28px"></span>
+                <div style="line-height: 70px">
+                    <a href="/index"><img src="/static/images/logo.png" width="100px" alt="重庆恭逸科技有限公司"></a>
+                </div>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav ">
+                @for(nav in navList){
+                <li class="nav-title-height">
+                    @if(current==nav.navName){
+                    <a href="${nav.navUrl}" class="menu_a menu-active" >${nav.navName}</a>
+                    @}else{
+                    <a href="${nav.navUrl}" class="menu_a">${nav.navName}</a>
+                    @}
+                </li>
+                @}
+            </ul>
+            <div class="visible-lg-block" style="position:fixed;width: 200px;color:white;height: 28px;border-radius: 40px;right: 20px;border: 1px solid white;margin-top: 26px;">
+                <form action="/search/" method="get">
+                    <input id="bdcsMain" placeholder="智能马桶 智能马桶盖" name="keywords" style="outline:none;color: white;height: 28px;border-radius: 40px;width: 165px;background: transparent;border: none;line-height: 28px;display: inline-block;margin-left: 6px;" title="search" >
+                    <button style="height:15px;width:15px;position: absolute;top: 5px;right: 10px;background: url('${ctxPath}/static/images/pc/icon/搜索.png');border-style:none;padding: 0" type="submit"></button>
+                </form>
+           </div>
+        </div>
+        </div>
+    </div>
+</nav>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-content modal-dialog">
+        <div class="modal-header" style="padding: 5px 15px;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: 10px;">
+                <span aria-hidden="true">×</span>
+            </button> <h4><i class="fa fa-search"></i> 搜索产品、新闻</h4>
+        </div>
+        <div class="modal-body">
+            <form action="/search/" method="get" class="form-horizontal searchForm" id="searchForm">
+                <div class="input-group bottom-line">
+                    <input type="text" class="form-control br-none" name="keywords" value="" required="required" placeholder="输入搜索内容">
+                    <span class="input-group-btn"> <button class="btn btn-default br-none nav-search-btn pointer" type="submit"><i class="fa fa-search"></i> 搜索</button>
+                    </span>
+                </div>
+                <div class="clear"></div>
+                <ul class="list-unstyled list-inline search-hot">
+                    <li><strong style="position: relative;top: 2px;color: #999999;">热门搜索：</strong></li>
+                    @for(word in hotWords){
+                    <li><a  href="/search?keywords=${word.word}" class="pointer" rel="external nofollow"><span class="label label-info">${word.word}</span></a></li>
+                    @}
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!--手机端 -->
+
+<div id="mobile-head" class="visible-sm-block visible-xs-block mobile-head">
+    <div style="width: 146px;background-color: #50c9a0;border-radius: 0 20px 20px 0;display: inline-block;height: 32px;line-height: 32px" onclick="window.location.href='/'">
+        <img src="/static/images/logo.png" style="width: 80px;margin-left: 18px">
+    </div>
+    <div style="float: right;display: inline-block;margin-top: 2px;">
+        <a data-toggle="modal" data-target="#myModal" style="display: inline-block;margin-right: 38px"><img id="header-search" src="/static/images/mobile/icon/搜索（白）.png" style="width: 26px"></a>
+        <a data-toggle="modal" data-target="#myMenuModal" style="display: inline-block;margin-right: 10px"><img id="header-menu" src="/static/images/icon/汉堡包白.png" style="width: 26px"></a>
+
+    </div>
+</div>
+<div class="modal fade" id="myMenuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-content modal-dialog" style="height: 100%;width: 100%;padding: 0;margin: 0;background-color: rgba(0, 0, 0, 0.7);">
+        <div style="width: 100%;height: 80px">
+            <div class="modal-header" style="padding: 5px 15px;border-bottom:none">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: 10px;border-radius: 27px;border: 3px solid white; width: 40px; height: 40px;">
+                    <span aria-hidden="true" style="color: white;font-size: 32px;">×</span>
+                </button>
+            </div>
+        </div>
+        @for(item in navList){
+        <a href="${item.navUrl}" class="footer-nav">
+            <span> ${item.navName}</span>
+            <i class="fa fa-angle-right" aria-hidden="true" style="font-size: 40px;color: white;float: right"></i>
+        </a>
+        @}
+        <hr/>
+        <div>
+            @for(s in shop){
+            <a href="${s.url}" target="_blank" style="height: 43px; width: 100%; font-size: 20px;padding-right: 21px;display: block;color: white;line-height: 43px;padding-left: 30px">
+                <span> ${s.name}</span>
+            </a>
+            @}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(".dashboard").click(function () {
+        window.open("http://back.gongyitech.com","_blank");
+    })
+</script>
