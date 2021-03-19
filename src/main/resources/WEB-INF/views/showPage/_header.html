@@ -3,32 +3,12 @@
     <div class="visible-lg-block visible-md-block menu-box">
         <div class="pull-left">
             <ul class="list-unstyled list-inline">
-                <li><span id="currentTime" style="color: white">欢迎访问恭逸科技官方网站!</span></li>
+                <li><span id="currentTime" style="color: white">欢迎访问北京霍驰门窗官方网站!</span></li>
             </ul>
             <div class="clear"></div>
         </div>
         <div class="menu-topmenu-container pull-right">
-            <ul class="list-unstyled list-inline pull-left">
-                <li>
-                    <a href="/area.html" class="menu_a" style="color:white">企业分站 |</a>
-                </li>
-                <li>
-                    <a href="/sitemap.html" class="menu_a" style="color:white"> 网站地图 |</a>
-                </li>
-                <li>
-                    <a href="/rss.xml" class="menu_a" style="color:white"> RSS |</a>
-                </li>
-                <li>
-                    <a href="/sitemap.xml" class="menu_a" style="color:white"> XML |</a>
-                </li>
-                <li>
-                    @if(messageCount == 0){
-                    <span class="menu_a dashboard" style="color:white"> 询盘信息！</span>
-                    @}else{
-                    <span class="menu_a dashboard" style="color:white"> 您有${messageCount}条询盘信息！</span>
-                    @}
-                </li>
-            </ul>
+
         </div>
     </div>
 </nav>
@@ -42,24 +22,26 @@
                 </a>
                 <span class="pull-right nav-search toggle-search" data-toggle="modal" data-target="#myModal"><img src="/static/images/mobile/icon/搜索（白）.png" width="28px"></span>
                 <div style="line-height: 70px">
-                    <a href="/index"><img src="/static/images/logo.png" width="100px" alt="重庆恭逸科技有限公司"></a>
+                    <a href="/index"><img src="/static/images/logo.png" width="180px" alt="霍驰门窗"></a>
                 </div>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav ">
                 @for(nav in navList){
                 <li class="nav-title-height">
-                    @if(current==nav.navName){
-                    <a href="${nav.navUrl}" class="menu_a menu-active" >${nav.navName}</a>
-                    @}else{
-                    <a href="${nav.navUrl}" class="menu_a">${nav.navName}</a>
+                    @if(nav.id<=8){
+                        @if(current==nav.navName){
+                        <a href="${nav.navUrl}" class="menu_a menu-active" >${nav.navName}</a>
+                        @}else{
+                        <a href="${nav.navUrl}" class="menu_a">${nav.navName}</a>
+                        @}
                     @}
                 </li>
                 @}
             </ul>
             <div class="visible-lg-block" style="position:fixed;width: 200px;color:white;height: 28px;border-radius: 40px;right: 20px;border: 1px solid white;margin-top: 26px;">
                 <form action="/search/" method="get">
-                    <input id="bdcsMain" placeholder="智能马桶 智能马桶盖" name="keywords" style="outline:none;color: white;height: 28px;border-radius: 40px;width: 165px;background: transparent;border: none;line-height: 28px;display: inline-block;margin-left: 6px;" title="search" >
+                    <input id="bdcsMain" placeholder="70门窗" name="keywords" style="outline:none;color: white;height: 28px;border-radius: 40px;width: 165px;background: transparent;border: none;line-height: 28px;display: inline-block;margin-left: 6px;" title="search" >
                     <button style="height:15px;width:15px;position: absolute;top: 5px;right: 10px;background: url('${ctxPath}/static/images/pc/icon/搜索.png');border-style:none;padding: 0" type="submit"></button>
                 </form>
            </div>
@@ -116,10 +98,14 @@
             </div>
         </div>
         @for(item in navList){
+        @if(item.id<=8){
+
         <a href="${item.navUrl}" class="footer-nav">
             <span> ${item.navName}</span>
             <i class="fa fa-angle-right" aria-hidden="true" style="font-size: 40px;color: white;float: right"></i>
         </a>
+
+        @}
         @}
         <hr/>
         <div>

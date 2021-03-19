@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,6 +48,8 @@ public class AppMessageController {
     AppService appService;
     @Autowired
     MaisonService maisonService;
+    @Autowired
+    Executor taskExecutor;
 
 
     /**
@@ -123,54 +128,47 @@ public class AppMessageController {
     private void setLeftMode(Model model){
         long start = System.currentTimeMillis();
 
-        Thread t1 = new Thread(()->{
+        CompletableFuture<Void> navList = CompletableFuture.runAsync(() -> {
             List<Navigation> navVOS = navigationService.showAllNav();
-            model.addAttribute("navList",navVOS);
-        });
-        Thread t2 = new Thread(()->{
+            model.addAttribute("navList", navVOS);
+        },taskExecutor);
+        CompletableFuture<Void> linkUs = CompletableFuture.runAsync(() -> {
             //联系方式
             CompanyInfo companyDetail = companyInfoService.getCompanyDetail();
-            model.addAttribute("linkUs",userService.show(companyDetail.getLinkManId()));
-        });
-        Thread t3 = new Thread(()->{
+            model.addAttribute("linkUs", userService.show(companyDetail.getLinkManId()));
+        },taskExecutor);
+
+        CompletableFuture<Void> news = CompletableFuture.runAsync(() -> {
             //最新资讯
-            long s1=System.currentTimeMillis();
-            model.addAttribute("news",newsService.leftNews());
-        });
-        Thread t4 = new Thread(()->{
+            long s1 = System.currentTimeMillis();
+            model.addAttribute("news", newsService.leftNews());
+        },taskExecutor);
+        CompletableFuture<Void> hotWords = CompletableFuture.runAsync(() -> {
             //热搜词
-            List<HotWord> list=hotWordService.getHot(6);
-            model.addAttribute("hotWords",list);
-        });
-        Thread t5 = new Thread(()->{
+            List<HotWord> list = hotWordService.getHot(6);
+            model.addAttribute("hotWords", list);
+        },taskExecutor);
+        CompletableFuture<Void> messageCount = CompletableFuture.runAsync(() -> {
             //询盘信息
             int count = messageService.getNewMessage();
             model.addAttribute("messageCount", count);
-        });
-        Thread t6 = new Thread(()->{
-            model.addAttribute("appImg",appService.showApp());
-        });
-        Thread t7 = new Thread(()->{
+        },taskExecutor);
+
+        CompletableFuture<Void> appImg = CompletableFuture.runAsync(() -> {
+            model.addAttribute("appImg", appService.showApp());
+        },taskExecutor);
+
+        CompletableFuture<Void> shop = CompletableFuture.runAsync(() -> {
             //店铺
-            List<Maison> list =  maisonService.selectList(new EntityWrapper<>());
-            model.addAttribute("shop",list);
-        });
-        t1.start();
-        t2.start();
-        t3.start();
-        t4.start();
-        t5.start();
-        t6.start();
-        t7.start();
+            List<Maison> list = maisonService.selectList(new EntityWrapper<>());
+            model.addAttribute("shop", list);
+        },taskExecutor);
+
         try {
-            t1.join();
-            t2.join();
-            t3.join();
-            t4.join();
-            t5.join();
-            t6.join();
-            t7.join();
+            CompletableFuture.allOf(shop,appImg,messageCount,hotWords,news,navList,linkUs).get();
         } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
         long end = System.currentTimeMillis();

@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 
 /**
  * 获取搜索页面
@@ -42,6 +45,8 @@ public class SearchController {
     AppService appService;
     @Autowired
     MaisonService maisonService;
+    @Autowired
+    Executor taskExecutor;
 
     /**
      *  获取搜索页面
@@ -90,64 +95,94 @@ public class SearchController {
     }
 
 
+
     /**
-     * 左侧导航数据
-     * @param  model model
+     *  获取左侧导航需要的数据
+     * @param model 视图
      */
-    private void setLeftMode(Model model){
-        long start = System.currentTimeMillis();
-        Thread t1 = new Thread(()->{
+    private void setLeftMode(Model model) {
+        CompletableFuture<Void> voidCompletableFutureNavList = getVoidCompletableFutureNavList(model);
+        CompletableFuture<Void> voidCompletableFuture1 = getVoidCompletableFuture1(model);
+        CompletableFuture<Void> voidCompletableFuture2 = getVoidCompletableFuture2(model);
+        CompletableFuture<Void> voidCompletableFuture = getVoidCompletableFuture(model);
+        CompletableFuture<Void> voidCompletableFutureMessage = getVoidCompletableFutureMessage(model);
+        CompletableFuture<Void> voidCompletableFutureAppImg = getVoidCompletableFutureAppImg(model);
+        CompletableFuture<Void> voidCompletableFutureShop = getVoidCompletableFutureShop(model);
+        try {
+            CompletableFuture.allOf(voidCompletableFuture,voidCompletableFuture1,voidCompletableFuture2,voidCompletableFutureNavList,voidCompletableFutureMessage,voidCompletableFutureAppImg,voidCompletableFutureShop).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+    }
+    private CompletableFuture<Void> runnableExecutor(Runnable runnable){
+        return CompletableFuture.runAsync(runnable, taskExecutor);
+    };
+
+
+
+    private CompletableFuture<Void> getVoidCompletableFutureResponse(Model model, Integer functionClassId) {
+        return CompletableFuture.runAsync(() -> {
+            ResponseList<Product> responseList = productService.listByFunction(1, 9, "", functionClassId);
+            model.addAttribute("responseList", responseList);//该功能的产品
+        }, taskExecutor);
+    }
+
+
+    private CompletableFuture<Void> getVoidCompletableFutureNavList(Model model) {
+        return CompletableFuture.runAsync(() -> {
             List<Navigation> navVOS = navigationService.showAllNav();
-            model.addAttribute("navList",navVOS);
-        });
-        Thread t2 = new Thread(()->{
-            //联系方式
-            CompanyInfo companyDetail = companyInfoService.getCompanyDetail();
-            model.addAttribute("linkUs",userService.show(companyDetail.getLinkManId()));
-        });
-        Thread t3 = new Thread(()->{
-            //最新资讯
-            long s1=System.currentTimeMillis();
-            model.addAttribute("news",newsService.leftNews());
-            logger.info("left:"+(System.currentTimeMillis()-s1));
-        });
-        Thread t4 = new Thread(()->{
-            //热搜词
-            List<HotWord> list=hotWordService.getHot(6);
-            model.addAttribute("hotWords",list);
-        });
-        Thread t5 = new Thread(()->{
+            model.addAttribute("navList", navVOS);
+        }, taskExecutor);
+    }
+
+    private CompletableFuture<Void> getVoidCompletableFutureAppImg(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            model.addAttribute("appImg", appService.showApp());
+        }, taskExecutor);
+    }
+
+    private CompletableFuture<Void> getVoidCompletableFutureShop(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            //店铺
+            List<Maison> list = maisonService.selectList(new EntityWrapper<>());
+            model.addAttribute("shop", list);
+        }, taskExecutor);
+    }
+
+
+    private CompletableFuture<Void> getVoidCompletableFutureMessage(Model model) {
+        return CompletableFuture.runAsync(() -> {
             //询盘信息
             int count = messageService.getNewMessage();
             model.addAttribute("messageCount", count);
-        });
-        Thread t6 = new Thread(()->{
-            model.addAttribute("appImg",appService.showApp());
-        });
-        Thread t7 = new Thread(()->{
-            //店铺
-            List<Maison> list =  maisonService.selectList(new EntityWrapper<>());
-            model.addAttribute("shop",list);
-        });
-        t1.start();
-        t2.start();
-        t3.start();
-        t4.start();
-        t5.start();
-        t6.start();
-        t7.start();
-        try {
-            t1.join();
-            t2.join();
-            t3.join();
-            t4.join();
-            t5.join();
-            t6.join();
-            t7.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        long end = System.currentTimeMillis();
-        logger.info("搜索界面消耗时间----->："+(end-start));
+        }, taskExecutor);
+    }
+
+    private CompletableFuture<Void> getVoidCompletableFuture2(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            //最新资讯
+            long s1 = System.currentTimeMillis();
+            model.addAttribute("news", newsService.leftNews());
+            logger.info("left:" + (System.currentTimeMillis() - s1));
+        }, taskExecutor);
+    }
+
+    private CompletableFuture<Void> getVoidCompletableFuture1(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            //联系方式
+            CompanyInfo companyDetail = companyInfoService.getCompanyDetail();
+            model.addAttribute("linkUs", userService.show(companyDetail.getLinkManId()));
+        }, taskExecutor);
+    }
+
+    private CompletableFuture<Void> getVoidCompletableFuture(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            //热搜词
+            List<HotWord> list = hotWordService.getHot(6);
+            model.addAttribute("hotWords", list);
+        }, taskExecutor);
     }
 }

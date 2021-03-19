@@ -5,6 +5,7 @@ import com.website.company.entity.CompanyInfo;
 import com.website.company.mapper.CompanyInfoMapper;
 import com.website.company.service.CompanyInfoService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;

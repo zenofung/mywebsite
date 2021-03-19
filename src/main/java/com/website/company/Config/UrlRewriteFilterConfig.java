@@ -37,4 +37,6 @@ public class UrlRewriteFilterConfig extends UrlRewriteFilter {
             throw new ServletException("Unable to load URL rewrite configuration file from " + URL_REWRITE, ex);
         }
     }
+
+
 }

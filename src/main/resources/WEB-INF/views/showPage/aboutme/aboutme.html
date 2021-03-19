@@ -11,9 +11,10 @@
         setTimeout(hideURLbar, 0);
     }, false);
 
-    function hideURLbar() {
-        window.scrollTo(0, 1);
-    } </script>
+    // function hideURLbar() {
+    //     window.scrollTo(0, 1);
+    // }
+    </script>
     <!-- bootstrap-css -->
     <link href="${ctxPath}/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
     <!--// bootstrap-css -->
@@ -62,7 +63,7 @@
             <div id="left" class="left_absolute" style="width: 200px;opacity: 0.8">
                 <div style="background-color:#f8f8f8;color: #3a3a3a;">
                     <div style="font-weight: 400;font-size: 18px; text-align:center;line-height:35px;background-color: #50c9a0;">
-                        <span style="color: white">关于恭逸</span>
+                        <span style="color: white">关于霍驰门窗</span>
                     </div>
                     <div style="width: 100%;text-align: center">
                         <div style="width: 100%;font-size: 16px;line-height: 35px;"><a href="#companyInfo"
@@ -76,14 +77,14 @@
                         <div style="width: 100%;font-size: 16px;line-height: 35px;"><a href="#companyWork"
                                                                                        style="color: #3a3a3a">公司业务</a>
                         </div>
-                        <hr style="margin:0 43% 0 43%;background-color: #50C9A0;height: 1px"/>
-                        <div style="width: 100%;font-size: 16px;line-height: 35px;"><a href="#companySize"
-                                                                                       style="color: #3a3a3a">公司规模</a>
-                        </div>
-                        <hr style="margin:0 43% 0 43%;background-color: #50C9A0;height: 1px"/>
-                        <div style="width: 100%;font-size: 16px;line-height: 35px;"><a href="#companyManage"
-                                                                                       style="color: #3A3A3A">公司管理</a>
-                        </div>
+<!--                        <hr style="margin:0 43% 0 43%;background-color: #50C9A0;height: 1px"/>-->
+<!--                        <div style="width: 100%;font-size: 16px;line-height: 35px;"><a href="#companySize"-->
+<!--                                                                                       style="color: #3a3a3a">公司规模</a>-->
+<!--                        </div>-->
+<!--                        <hr style="margin:0 43% 0 43%;background-color: #50C9A0;height: 1px"/>-->
+<!--                        <div style="width: 100%;font-size: 16px;line-height: 35px;"><a href="#companyManage"-->
+<!--                                                                                       style="color: #3A3A3A">公司管理</a>-->
+<!--                        </div>-->
                         <hr style="margin:0 43% 0 43%;background-color: #50C9A0;height: 1px"/>
                         <div style="width: 100%;font-size: 16px;line-height: 35px;"><a href="#culture"
                                                                                        style="color: #3a3a3a">企业文化</a>
@@ -100,7 +101,7 @@
         <div class="col-md-9">
             <div style="height: 40px;width: 100%;line-height: 40px;" id="companyInfo">
                 <div style="display: inline-block;border-left:8px solid #50c9a0;padding-left: 8px;height: 35px">
-                    <span style="margin: 0;font-size: 21px;color: #474747">关于恭逸</span>
+                    <span style="margin: 0;font-size: 21px;color: #474747">关于霍驰门窗</span>
                 </div>
                 <!--面包屑 -->
                 <div style="display: inline-block;float: right">
@@ -160,14 +161,14 @@
                         <div id="matong" class="col-md-6"
                              style="background-color: #3a3a3a;height: 100%;text-align: center;margin: 0;cursor:pointer;"
                              onclick="window.location.href='${navMatong.navUrl}'">
-                            <h3 id="h1" style="color: #50c9a0;margin-top: 50px;font-weight: 500">智能马桶</h3>
+                            <h3 id="h1" style="color: #50c9a0;margin-top: 50px;font-weight: 500">断桥铝门窗</h3>
                             <img id="img1" src="${ctxPath}/static/images/home/未选中1.png" width="50" height="50"
                                  style="margin-top: 10px">
                         </div>
                         <div id="matonggai" class="col-md-6"
                              style="background-color:#50c9a0 ;height:100%;cursor:pointer;text-align: center;margin:0;"
-                             onclick="window.location.href='${navMatonggai.navUrl}'">
-                            <h3 id="h2" style="margin-top: 50px;font-weight: 500;color: #3A3A3A">智能马桶盖</h3>
+                             onclick="window.location.href='${navMatong.navUrl}'">
+                            <h3 id="h2" style="margin-top: 50px;font-weight: 500;color: #3A3A3A">系统门窗</h3>
                             <img id="img2" src="${ctxPath}/static/images/home/未选择2.png" width="50" height="50"
                                  style="margin-top: 10px">
                         </div>
@@ -188,92 +189,6 @@
     </div>
     <!--公司业务end -->
 
-    <!--公司规模 -->
-    <div style="background-color: #3a3a3a;width: 100%;height:600px;margin-top: 45px;padding-bottom: 32px"
-         id="companySize">
-        <div class="container">
-            <div class="col-md-3"></div>
-            <div class="col-md-9">
-                <div class="w3-about-us-div1">
-                    <div class="w3-about-us-div2" style="height: 35px">
-                        <span style="margin: 0;font-size: 21px;color: white">公司规模</span>
-                    </div>
-                </div>
-                <div style="margin-top: 9em; text-align: center">
-                    <div id="leader" class="col-md-4 col-xs-12">
-                        <div id="leaderPic" style="position: absolute">
-                            <div class="w3-about-team"><span>公司领导</span></div>
-                            <img src="${ctxPath}/static/images/pc/aboutUs/公司领导.png" alt="公司领导" class="img-circle"
-                                 width="250" height="250">
-                        </div>
-                        <div id="leaderInfo" style="position: absolute;opacity: 0">
-                            <div style="width: 250px;height: 250px;border: 3px solid #50c9a0;border-radius: 50%;text-align: center;padding: 33px">
-                                <h3 style="color:#3dcbb7;font-size: 30px;font-weight: 500;">公司领导</h3>
-                                <p style="color: #f5f5f5;font-size: 12px">${companyInfo.leader}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="team" class="col-md-4 col-xs-12">
-                        <div id="teamPic" style="position: absolute">
-                            <div class="w3-about-team"><span>研发团队</span></div>
-                            <img src="${ctxPath}/static/images/pc/aboutUs/研发团队.png" alt="研发团队" class="img-circle"
-                                 width="250px" height="250px">
-                        </div>
-                        <div id="teamInfo" style="position: absolute;opacity: 0">
-                            <div style="width: 250px;height: 250px;border: 3px solid #50c9a0;border-radius: 50%;text-align: center;padding: 33px">
-                                <h3 style="color:#3dcbb7;font-size: 30px;font-weight: 500;">研发团队</h3>
-                                <p style="color: #f5f5f5;font-size: 12px">${companyInfo.team}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="workTeam" class="col-md-4 col-xs-12">
-                        <div id="workTeamPic" style="position: absolute">
-                            <div class="w3-about-team"><span>业务团队</span></div>
-                            <img src="${ctxPath}/static/images/pc/aboutUs/业务团队.png" alt="业务团队" class="img-circle"
-                                 width="250px" height="250px">
-                        </div>
-                        <div id="workTeamInfo" style="position: absolute;opacity: 0">
-                            <div style="width: 250px;height: 250px;border: 3px solid #50c9a0;border-radius: 50%;text-align: center;padding: 33px">
-                                <h3 style="color:#3dcbb7;font-size: 30px;font-weight: 500;">业务团队</h3>
-                                <p style="color: #f5f5f5;font-size: 12px">${companyInfo.workTeam}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--公司规模 end-->
-
-    <!--公司管理 -->
-    <div class="container" id="companyManage" style="background-color: #eeeeee;height: 670px">
-        <div class="col-md-3"></div>
-        <div class="col-md-9">
-            <div class="w3-about-us-div1">
-                <div class="w3-about-us-div2" style="height: 35px">
-                    <span style="margin: 0;font-size: 21px;color: #474747">公司管理</span>
-                </div>
-            </div>
-            <div class="col-md-6 col-xs-12" style="padding: 51px;margin-top: 40px">
-                <div>
-                    <span style="font-size: 20px;color: #4d4d4d">${companyInfo.companyManage}</span>
-                </div>
-                <div>
-                    <div style="margin-top: 2em;margin-bottom: 1em">
-                        <span style="font-size: 28px;color:#474747;border-right: 2px solid #50c9a0;padding-right: 0.3em;">用户管理程序</span>
-                    </div>
-                    <div>
-                        <span style="font-size: 16px;color: #4d4d4d">${companyInfo.manageInfo}</span>
-                    </div>
-                </div>
-                <div style="position: absolute;left: 0px;height:80px;width:80px;bottom: 0;border-left: 8px solid #50C9A0;border-bottom: 8px solid #50C9A0"></div>
-            </div>
-            <div class="col-md-6" style="margin-top: -39px">
-                <img src="${ctxPath}/static/images/home/公司管理.jpg" style="height: 500px;width: 350px">
-            </div>
-        </div>
-    </div>
-    <!--公司规模end -->
 
     <!--企业文化 -->
     <div id="culture" class="container-fluid"
@@ -366,7 +281,7 @@
     <div class="container">
         <div style="margin-top: 20px">
             <span class="mobile-title1">关于我们</span>
-            <span class="mobile-title2">专注于智能、健康、舒适的卫浴研发</span>
+            <span class="mobile-title2">专注于门窗研发</span>
         </div>
         <div style="margin-top: 15px">
             <p>${companyInfo.description}</p>
@@ -379,65 +294,16 @@
         </div>
         <img src="${companyInfo.devPhonePic}" style="width: 100%;height: auto">
     </div>
-    <div class="container" style="margin-top: 20px">
-        <div>
-            <span class="mobile-title1">公司业务</span>
-            <span class="mobile-title2">从零开始潜心研究  始终如一的坚持与努力</span>
-        </div>
-        <div style="background: url('${companyInfo.workingRangePic}') no-repeat;background-size: cover;height: auto;width: 100%;display: flex;justify-content: center;align-items: center">
-            <div class="mobile-about-text">${companyInfo.workingRange}</div>
-        </div>
-    </div>
-    <div class="container">
-        <div style="margin-top: 20px;">
-            <span class="mobile-title1">公司领导</span>
-            <span class="mobile-title2">从零开始潜心研究  始终如一的坚持与努力</span>
-        </div>
-        <div style="margin-top: 20px">
-            <span style="font-size: 15px">${companyInfo.leader}</span>
-            <div style="width: 100%;height: 160px;background: url('/static/images/mobile/aboutUs/公司领导.jpg') no-repeat;background-size: cover;display: flex;justify-content: center;align-items: center">
-                <div class="mobile-leader-btn">
-                    <span class="mobile-btn-span">我们的领导团队</span>
-                    <img class="mobile-btn-img" src="${ctxPath}/static/images/mobile/icon/箭头.png">
-                </div>
-            </div>
-        </div>
-        <div style="margin-top: 20px;">
-            <span class="mobile-title1">研发团队</span>
-            <span class="mobile-title2">从零开始潜心研究  始终如一的坚持与努力</span>
-        </div>
-        <div style="margin-top: 20px">
-            <span style="font-size: 15px">${companyInfo.team}</span>
-        </div>
-        <div style="margin-top: 20px;">
-            <span class="mobile-title1">业务团队</span>
-            <span class="mobile-title2">从零开始潜心研究  始终如一的坚持与努力</span>
-        </div>
-        <div style="margin-top: 20px">
-            <span style="font-size: 15px">${companyInfo.workTeam}</span>
-        </div>
-        <div style="margin-top: 20px;">
-            <span class="mobile-title1">公司管理</span>
-            <span class="mobile-title2">从零开始潜心研究  始终如一的坚持与努力</span>
-        </div>
-        <div style="margin-top: 20px">
-            <span style="font-size: 15px">${companyInfo.companyManage}</span>
-        </div>
-        <div style="width: 100%;background: url('/static/images/mobile/aboutUs/公司管理.jpg') no-repeat;background-size: cover">
-            <div style="padding: 63px 20px 63px 20px;color: white">
-                <h3>三大管理程序</h3>
-                <span>${companyInfo.manageInfo}</span>
-            </div>
-        </div>
-    </div>
+
+
     <div class="container">
         <div style="margin-top: 20px;">
             <span class="mobile-title1">企业文化</span>
-            <span class="mobile-title2">不至于马桶  可以体检的智能马桶盖</span>
+            <span class="mobile-title2">门窗奥利给</span>
         </div>
         <div>
-            <p>重庆恭逸科技有限公司是一家致力于健康智能卫浴用品研发、生产和销售的创新型科技公司；公司拥有教授、博士、高级管理人才和技术骨干为主的技术和管理团队;<br>
-                在普通智能马桶盖的基础上，采用了高新传感器、电控制器、APP和云数据存储分析等技术；实现了用户入厕过程中对其身体健康指标进行监测，达到“差异化服务、健康监测”的目的。</p>
+<!--            <p>重庆恭逸科技有限公司是一家致力于健康智能卫浴用品研发、生产和销售的创新型科技公司；公司拥有教授、博士、高级管理人才和技术骨干为主的技术和管理团队;<br>-->
+<!--                在普通智能马桶盖的基础上，采用了高新传感器、电控制器、APP和云数据存储分析等技术；实现了用户入厕过程中对其身体健康指标进行监测，达到“差异化服务、健康监测”的目的。</p>-->
         </div>
 
         <div style="width: 100%;height: 276px;background: url('/static/images/mobile/aboutUs/技术专利.jpg')no-repeat;background-size: cover;margin-bottom: 20px">

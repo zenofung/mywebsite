@@ -11,9 +11,10 @@
         setTimeout(hideURLbar, 0);
     }, false);
 
-    function hideURLbar() {
-        window.scrollTo(0, 1);
-    } </script>
+    // function hideURLbar() {
+    //     window.scrollTo(0, 1);
+    // }
+    </script>
     <!-- bootstrap-css -->
     <link href="${ctxPath}/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
     <!--// bootstrap-css -->
@@ -70,7 +71,7 @@
 </head>
 <body>
 <!--banner-->
-@include("../_header.html",{current:'功能分类'}){}
+@include("../_header.html",{current:'经典案例'}){}
 <div class="w3layouts-banner-top-functionClass visible-lg-block visible-md-block"
      style="background-size: cover ;height: 570px">
 </div>
@@ -85,7 +86,7 @@
             <div id="function" style="z-index:999;width: 200px;opacity: 0.8">
                 <div style="background-color:#f8f8f8;color: #3a3a3a;">
                     <div style="font-weight: 400;font-size: 18px; text-align:center;line-height:35px;background-color: #50c9a0;">
-                        <span style="color: white">功能分类</span>
+                        <span style="color: white">经典案例</span>
                     </div>
                     <div style="width: 100%;text-align: center;font-size: 16px">
                         @for(functionClass in functionClassList.result){
@@ -106,7 +107,7 @@
         <div class="col-md-9">
             <div class="visible-lg-block visible-md-block" style="height: 40px;width: 100%;line-height: 40px;">
                 <div style="display: inline-block;border-left:8px solid #50c9a0;padding-left: 8px;height: 35px"><span
-                        style="margin: 0;font-size: 21px;color: #474747">功能分类</span></div>
+                        style="margin: 0;font-size: 21px;color: #474747">经典案例</span></div>
                 <!--面包屑 -->
                 <div style="display: inline-block;float: right">
                     <ul style="list-style: none">
@@ -117,7 +118,7 @@
                             <span style="color:#464646 "> &nbsp>>&nbsp </span>
                         </li>
                         <li style="display: inline-block;color: #464646;font-family: 'Open Sans', sans-serif;letter-spacing: 1px">
-                            功能分类
+                            经典案例
                         </li>
                     </ul>
                 </div>
@@ -135,13 +136,13 @@
                         <div class="wthree-heading" style="text-align: left">
                             <div style="margin-bottom: 30px">
                                 <span style="font-size: 25px;display: block;color: #2b2b2b">URINE TOILET</span>
-                                <span style="font-size: 35px;font-weight: 500;display: block;color:#50C9A0 ">${functionClassList.result[0].productName}</span>
+                                <span style="font-size: 24px;font-weight: 500;display: block;color:#50C9A0 ">${functionClassList.result[0].productName}</span>
                             </div>
                             <p>
                                 ${functionClassList.result[0].description}
                             </p>
                             <button class="allbtn" type="button"
-                                    onclick="window.location.href='/function/${functionClassList.result[0].id}.html'">
+                                    onclick="window.location.href='/product/list/1.html'">
                                 全部商品
                             </button>
                         </div>
@@ -154,13 +155,13 @@
                         <div class="wthree-heading" style="text-align: left">
                             <div style="margin-bottom: 30px">
                                 <span style="font-size: 25px;display: block;color: #2b2b2b">URINE TOILET</span>
-                                <span style="font-size: 35px;font-weight: 500;display: block;color:#50C9A0 ">${functionClassList.result[1].productName}</span>
+                                <span style="font-size: 24px;font-weight: 500;display: block;color:#50C9A0 ">${functionClassList.result[1].productName}</span>
                             </div>
                             <p>
                                 ${functionClassList.result[1].description}
                             </p>
                             <button type="button" class="allbtn"
-                                    onclick="window.location.href='/function/${functionClassList.result[1].id}.html'">
+                                    onclick="window.location.href='/product/list/1.html'">
                                 全部商品
                             </button>
                         </div>
@@ -186,7 +187,7 @@
                         <div class="wthree-heading" style="text-align: left">
                             <div style="margin-bottom: 30px">
                                 <span style="font-size: 25px;display: block;color: #2b2b2b">URINE TOILET</span>
-                                <span style="font-size: 35px;font-weight: 500;display: block;color:#50C9A0 ">
+                                <span style="font-size: 24px;font-weight: 500;display: block;color:#50C9A0 ">
                                         ${functionClassList.result[2].productName}
                                     </span>
                             </div>
@@ -194,7 +195,7 @@
                                 ${functionClassList.result[2].description}
                             </p>
                             <button type="button" class="allbtn"
-                                    onclick="window.location.href='/function/${functionClassList.result[2].id}.html'">
+                                    onclick="window.location.href='/product/list/1.html'">
                                 全部商品
                             </button>
                         </div>
@@ -207,7 +208,7 @@
                         <div class="wthree-heading" style="text-align: left">
                             <div style="margin-bottom: 30px">
                                 <span style="font-size: 25px;display: block;color: #2b2b2b">URINE TOILET</span>
-                                <span style="font-size: 35px;font-weight: 500;display: block;color:#50C9A0 ">
+                                <span style="font-size: 24px;font-weight: 500;display: block;color:#50C9A0 ">
                                         ${functionClassList.result[3].productName}
                                     </span>
                             </div>
@@ -215,7 +216,7 @@
                                 ${functionClassList.result[3].description}
                             </p>
                             <button type="button" class="allbtn"
-                                    onclick="window.location.href='/function/${functionClassList.result[3].id}.html'">
+                                    onclick="window.location.href='/product/list/1.html'">
                                 全部商品
                             </button>
                         </div>
@@ -228,33 +229,8 @@
                         </div>
                     </div>
                 </div>
-                <canvas id="myCanvas4" style="width: 100%;height: 250px;margin: -40px 0px -60px 0">
-                </canvas>
-                <div id="${functionClassList.result[4].id}" class="row" style="margin-bottom: 150px">
-                    <div class="col-md-5" style="text-align: center;margin-top: 25px;">
-                        <div class="divimg">
-                            <img src="${functionClassList.result[4].pic}" width="227px;" height="227px"
-                                 style="border-radius: 50%;">
-                        </div>
-                    </div>
-                    <div class="col-md-6" style="margin-top: 25px;">
-                        <div class="wthree-heading" style="text-align: left">
-                            <div style="margin-bottom: 30px">
-                                <span style="font-size: 25px;display: block;color: #2b2b2b">URINE TOILET</span>
-                                <span style="font-size: 35px;font-weight: 500;display: block;color:#50C9A0 ">
-                                        ${functionClassList.result[4].productName}
-                                    </span>
-                            </div>
-                            <p>
-                                ${functionClassList.result[4].description}
-                            </p>
-                            <button type="button" class="allbtn"
-                                    onclick="window.location.href='/function/${functionClassList.result[4].id}.html'">
-                                全部商品
-                            </button>
-                        </div>
-                    </div>
-                </div>
+
+
             </div>
         </div>
     </div>
@@ -264,10 +240,12 @@
             <span class="mobile-title1">URINE TOILET</span>
             <span class="mobile-title2">${function.productName}</span>
         </div>
+<!--        <div class="mobile-function-img"-->
+<!--             style="background: url('${ctxPath}/static/images/mobile/function/全部产品.jpg')no-repeat 0 0;background-size: 100%;padding-top: 30%">-->
         <div class="mobile-function-img"
-             style="background: url('${ctxPath}/static/images/mobile/function/全部产品.jpg')no-repeat 0 0;background-size: 100%;padding-top: 30%">
+             style="background: url('${function.icon}')no-repeat 0 0;background-size: 100%;padding-top: 30%">
             <a class="mobile-btn-a" style="width: 35%;margin: 25px auto 0px auto"
-               href="/function/${function.id}.html">
+               href="/product/list/1.html">
                 <span class="mobile-btn-span">全部商品</span>
                 <img class="mobile-btn-img" src="${ctxPath}/static/images/mobile/icon/箭头.png"/>
             </a>

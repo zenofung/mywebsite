@@ -29,6 +29,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 
 /**
  * @author pengyangyan
@@ -74,6 +77,9 @@ public class HomeController {
     AppService appService;
     @Autowired
     MaisonService maisonService;
+    @Autowired
+    Executor taskExecutor;
+
 
 
     //首页
@@ -86,37 +92,38 @@ public class HomeController {
     @ResponseBody
     public Map<String,Object> getIndexNews(){
         Map<String,Object> map = new HashMap<>(3);
-        Thread news1 = new Thread(()->{
+        CompletableFuture<Void> voidCompletableFuture = CompletableFuture.runAsync(() -> {
             NewsClassDTO newsClassDTO = new NewsClassDTO();
             NewsClass show = newsClassService.show(2);
-            BeanUtils.copyProperties(show,newsClassDTO,"list");
+            BeanUtils.copyProperties(show, newsClassDTO, "list");
             newsClassDTO.setList(newsMapper.getNewsList(show.getId()));
-            map.put("news1",newsClassDTO);
-        });
-        Thread news2 = new Thread(()->{
+            map.put("news1", newsClassDTO);
+        }, taskExecutor);
+
+        CompletableFuture<Void> voidCompletableFuture1 = CompletableFuture.runAsync(() -> {
             NewsClassDTO newsClassDTO = new NewsClassDTO();
             NewsClass show = newsClassService.show(1);
-            BeanUtils.copyProperties(show,newsClassDTO,"list");
+            BeanUtils.copyProperties(show, newsClassDTO, "list");
             newsClassDTO.setList(newsMapper.getNewsList(show.getId()));
-            map.put("news2",newsClassDTO);
-        });
-        Thread news3 = new Thread(()->{
+            map.put("news2", newsClassDTO);
+        }, taskExecutor);
+
+        CompletableFuture<Void> voidCompletableFuture2 = CompletableFuture.runAsync(() -> {
             NewsClassDTO newsClassDTO = new NewsClassDTO();
             NewsClass show = newsClassService.show(3);
-            BeanUtils.copyProperties(show,newsClassDTO,"list");
+            BeanUtils.copyProperties(show, newsClassDTO, "list");
             newsClassDTO.setList(newsMapper.getNewsList(show.getId()));
-            map.put("news3",newsClassDTO);
-        });
-        news1.start();
-        news2.start();
-        news3.start();
+            map.put("news3", newsClassDTO);
+        }, taskExecutor);
+
         try {
-            news1.join();
-            news2.join();
-            news3.join();
+            CompletableFuture.allOf(voidCompletableFuture,voidCompletableFuture1,voidCompletableFuture2).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
+
         return map;
     }
 
@@ -142,24 +149,25 @@ public class HomeController {
     @ResponseBody
     public Map<String,Object> getIndexFunctionAndClass(){
         Map<String,Object> map = new HashMap<>(2);
-        Thread function = new Thread(()->{
-            ResponseList<FunctionClass> list = functionClassService.listFunction(1, 10, 0);
-            map.put("functions",list);
-        });
-        Thread Class = new Thread(()->{
+        CompletableFuture<Void> functions = CompletableFuture.runAsync(() -> {
+            ResponseList<FunctionClass> list = functionClassService.listFunction(1, 4, 0);
+            map.put("functions", list);
+        }, taskExecutor);
+        CompletableFuture<Void> classList1 = CompletableFuture.runAsync(() -> {
             List<ProductClass> classList = productClassService.selectProductClassList();
-            map.put("classList",classList);
-        });
-        function.start();
-        Class.start();
+            map.put("classList", classList);
+        }, taskExecutor);
         try {
-            function.join();
-            Class.join();
+            CompletableFuture.allOf(classList1,functions).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
+
         return map;
     }
+
 
 
 
@@ -180,87 +188,82 @@ public class HomeController {
             model.addAttribute("description",navigation.getNavDesc());
         }
         model.addAttribute("keywords",navigation.getNavKeywords());
-        Thread banner = new Thread(()->{
+        CompletableFuture<Void> voidCompletableFuture = runnableExecutor(() -> {
             //banner信息
             List<Spanner> bannerPic = spannerService.list();
-            model.addAttribute("bannerPic",bannerPic);
+            model.addAttribute("bannerPic", bannerPic);
             //公告/活动
             List<BannerInfo> bannerInfos = bannerInfoService.selectBannerList();
-            model.addAttribute("bannerInfo",bannerInfos);
+            model.addAttribute("bannerInfo", bannerInfos);
         });
-        Thread product = new Thread(()->{
+        CompletableFuture<Void> products = runnableExecutor(() -> {
             long s = System.currentTimeMillis();
             //产品展示
             List<Product> list = productMapper.getProductList();
             List<ProductDTO> productDTOList = new ArrayList<>();
-            int i=4;
-            while (i>0){
+            int size = list.size();
+            int i = 1;
+            while (i > 0) {
                 ProductDTO productDTO = new ProductDTO();
-                productDTO.setProductList(list.subList((i-1)*3,i*3));
+                productDTO.setProductList(list.subList((i - 1) * 3, i * 3));
                 productDTOList.add(productDTO);
-                i--;
+                if (i * 3 >= size - 2) {
+                    break;
+                }
+                i++;
             }
-            model.addAttribute("products",productDTOList);
-            logger.info("product:"+(System.currentTimeMillis()-s));
+            model.addAttribute("products", productDTOList);
+            logger.info("product:" + (System.currentTimeMillis() - s));
         });
-        Thread Class = new Thread(()->{
+
+        CompletableFuture<Void> classList1 = runnableExecutor(() -> {
             long s1 = System.currentTimeMillis();
             List<ProductClass> classList = productClassService.selectProductClassList();
-            model.addAttribute("classList",classList);
+            model.addAttribute("classList", classList);
             long s2 = System.currentTimeMillis();
-            logger.info("class1:"+(s2-s1));
+            logger.info("class1:" + (s2 - s1));
         });
-        Thread news1 = new Thread(()->{
+        CompletableFuture<Void> voidCompletableFuture1 = runnableExecutor(() -> {
             long t1 = System.currentTimeMillis();
             NewsClassDTO newsClassDTO = new NewsClassDTO();
             NewsClass show = newsClassService.show(2);
-            BeanUtils.copyProperties(show,newsClassDTO,"list");
+            BeanUtils.copyProperties(show, newsClassDTO, "list");
             newsClassDTO.setList(newsMapper.getNewsList(show.getId()));
-            model.addAttribute("news1",newsClassDTO);
+            model.addAttribute("news1", newsClassDTO);
             long t2 = System.currentTimeMillis();
-            logger.info("news1:"+(t2-t1));
+            logger.info("news1:" + (t2 - t1));
         });
-        Thread news2 = new Thread(()->{
+        CompletableFuture<Void> voidCompletableFuture2 = runnableExecutor(() -> {
             NewsClassDTO newsClassDTO = new NewsClassDTO();
             NewsClass show = newsClassService.show(1);
-            BeanUtils.copyProperties(show,newsClassDTO,"list");
+            BeanUtils.copyProperties(show, newsClassDTO, "list");
             newsClassDTO.setList(newsMapper.getNewsList(show.getId()));
-            model.addAttribute("news2",newsClassDTO);
+            model.addAttribute("news2", newsClassDTO);
         });
-        Thread news3 = new Thread(()->{
+        CompletableFuture<Void> voidCompletableFuture3 = runnableExecutor(() -> {
             NewsClassDTO newsClassDTO = new NewsClassDTO();
             NewsClass show = newsClassService.show(3);
-            BeanUtils.copyProperties(show,newsClassDTO,"list");
+            BeanUtils.copyProperties(show, newsClassDTO, "list");
             newsClassDTO.setList(newsMapper.getNewsList(show.getId()));
-            model.addAttribute("news3",newsClassDTO);
+            model.addAttribute("news3", newsClassDTO);
         });
-        Thread link = new Thread(()->{
+        CompletableFuture<Void> voidCompletableFuture4 = runnableExecutor(() -> {
             //关于我们
             CompanyInfo companyDetail = companyInfoService.getCompanyDetail();
-            model.addAttribute("companyInfo",companyDetail);
+            model.addAttribute("companyInfo", companyDetail);
             //友情链接
-            model.addAttribute("links",linksService.list());
+            model.addAttribute("links", linksService.list());
         });
-        Thread function = new Thread(()->{
-            ResponseList<FunctionClass> list = functionClassService.listFunction(1, 10, 0);
-            model.addAttribute("functions",list);
+        CompletableFuture<Void> functions = runnableExecutor(() -> {
+            ResponseList<FunctionClass> list = functionClassService.listFunction(1, 4, 0);
+            model.addAttribute("functions", list);
         });
-        banner.start();
-        product.start();
-        Class.start();
-        link.start();
-        news1.start();
-        news2.start();
-        news3.start();
-        function.start();
-        function.join();
-        news1.join();
-        news2.join();
-        news3.join();
-        banner.join();
-        product.join();
-        Class.join();
-        link.join();
+        try {
+            CompletableFuture.allOf(functions,voidCompletableFuture,voidCompletableFuture1,voidCompletableFuture2,voidCompletableFuture3,voidCompletableFuture4,products,classList1).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
         long end2 = System.currentTimeMillis();
         logger.info("消耗时间"+(end2-start));
         return  new ModelAndView("showPage/home/index");
@@ -275,11 +278,11 @@ public class HomeController {
         channel.setEncoding("UTF-8");// RSS文件编码
         channel.setLanguage("ZH_CN");// RSS使用的语言
         channel.setFeedType("rss_2.0");
-        channel.setTitle("重庆恭逸科技有限公司");
-        channel.setDescription("重庆恭逸科技是一家致力于智能马桶、智能马桶盖、智能座便器，研发，生产，销售为一体的科技型公司。公司自主研发的智能体脂检测马桶盖，尿检马桶盖，便检马桶盖，智能按摩马桶盖获得20多项专利。");
-        channel.setLink("https://www.gongyitech.com");
-        channel.setUri("https://www.gongyitech.com");
-        channel.setGenerator("恭逸");
+        channel.setTitle("北京如日之升建筑材料有限公司");
+        channel.setDescription("北京如日之升建筑材料是一家致力于智能马桶、智能马桶盖、智能座便器，研发，生产，销售为一体的科技型公司。公司自主研发的智能体脂检测马桶盖，尿检马桶盖，便检马桶盖，智能按摩马桶盖获得20多项专利。");
+        channel.setLink("https://www.huochimc.com");
+        channel.setUri("https://www.huochimc.com");
+        channel.setGenerator("霍驰");
         Date postDate = new Date();
         channel.setPubDate(postDate);
         List<Item> items=new ArrayList<>();
@@ -289,8 +292,8 @@ public class HomeController {
             Item item = new Item();
             item.setTitle(v.getNewsTitle());
             item.setAuthor(v.getAuthor());
-            item.setLink("https://www.gongyitech.com/newsDetail/newsId"+v.getId()+".html");
-            item.setUri("https://www.gongyitech.com/newsDetail/newsId"+v.getId()+".html");
+            item.setLink("https://www.huochimc.com/newsDetail/newsId"+v.getId()+".html");
+            item.setUri("https://www.huochimc.com/newsDetail/newsId"+v.getId()+".html");
             com.rometools.rome.feed.rss.Category category = new com.rometools.rome.feed.rss.Category();
             category.setValue("新闻");
             item.setCategories(Collections.singletonList(category));
@@ -304,9 +307,9 @@ public class HomeController {
         productList.forEach(v->{
             Item item = new Item();
             item.setTitle(v.getProductName());
-            item.setAuthor("恭逸科技");
-            item.setLink("https://www.gongyitech.com/product/detail/"+v.getId()+".html");
-            item.setUri("https://www.gongyitech.com/product/detail/"+v.getId()+".html");
+            item.setAuthor("北京如日之升");
+            item.setLink("https://www.huochimc.com/product/detail/"+v.getId()+".html");
+            item.setUri("https://www.huochimc.com/product/detail/"+v.getId()+".html");
             com.rometools.rome.feed.rss.Category category = new com.rometools.rome.feed.rss.Category();
             category.setValue("产品");
             item.setCategories(Collections.singletonList(category));
@@ -323,12 +326,12 @@ public class HomeController {
     public Feed atom() {
         Feed feed = new Feed();
         feed.setFeedType("atom_1.0");
-        feed.setTitle("重庆恭逸科技有限公司");
-        feed.setId("https://www.gongyitech.com");
+        feed.setTitle("北京如日之升建筑材料有限公司");
+        feed.setId("https://www.huochimc.com");
 
         Content subtitle = new Content();
         subtitle.setType("text/plain");
-        subtitle.setValue("https://www.gongyitech.com");
+        subtitle.setValue("https://www.huochimc.com");
         feed.setSubtitle(subtitle);
         Date postDate = new Date();
         feed.setUpdated(postDate);
@@ -339,7 +342,7 @@ public class HomeController {
         newsList.forEach(v->{
             Entry entry = new Entry();
             Link link = new Link();
-            link.setHref("https://www.gongyitech.com/newsDetail/newsId"+v.getId()+".html.");
+            link.setHref("https://www.huochimc.com/newsDetail/newsId"+v.getId()+".html.");
             entry.setAlternateLinks(Collections.singletonList(link));
             SyndPerson author = new Person();
             author.setName(v.getAuthor());
@@ -363,10 +366,10 @@ public class HomeController {
         productList.forEach(v->{
             Entry entry = new Entry();
             Link link = new Link();
-            link.setHref("https://www.gongyitech.com/product/detail/"+v.getId()+".html");
+            link.setHref("https://www.huochimc.com/product/detail/"+v.getId()+".html");
             entry.setAlternateLinks(Collections.singletonList(link));
             SyndPerson author = new Person();
-            author.setName("恭逸科技");
+            author.setName("如日之升建筑材料");
             entry.setAuthors(Collections.singletonList(author));
             entry.setCreated(v.getCreateDatetime());
             entry.setPublished(postDate);
@@ -408,69 +411,64 @@ public class HomeController {
         }else{
             model.addAttribute("moblie",2);
         }
-        Thread t1=new Thread(()->{
-            long tt1=System.currentTimeMillis();
+        CompletableFuture<Void> voidCompletableFuture = runnableExecutor(() -> {
+            long tt1 = System.currentTimeMillis();
             List<NewsClassDTO> newsClassDTOS = new ArrayList<>();
             List<NewsClass> newsClasses = newsClassService.list();
             newsClasses.forEach(v -> {
                 NewsClassDTO newsClassDTO = new NewsClassDTO();
-                BeanUtils.copyProperties(v,newsClassDTO,"list");
-                newsClassDTO.setList(newsService.indexNews(v.getId(),6));
+                BeanUtils.copyProperties(v, newsClassDTO, "list");
+                newsClassDTO.setList(newsService.indexNews(v.getId(), 6));
                 newsClassDTOS.add(newsClassDTO);
             });
-            model.addAttribute("newsClassDTOS",newsClassDTOS);
-            logger.info("news:"+(System.currentTimeMillis()-tt1));
+            model.addAttribute("newsClassDTOS", newsClassDTOS);
+            logger.info("news:" + (System.currentTimeMillis() - tt1));
         });
-        Thread t2=new Thread(()->{
-            long tt1=System.currentTimeMillis();
-            model.addAttribute("hotword",hotWordService.getHot(7));
-            logger.info("hot:"+(System.currentTimeMillis()-tt1));
+        CompletableFuture<Void> hotword = runnableExecutor(() -> {
+            long tt1 = System.currentTimeMillis();
+            model.addAttribute("hotword", hotWordService.getHot(7));
+            logger.info("hot:" + (System.currentTimeMillis() - tt1));
         });
-        Thread t3=new Thread(()->{
-            long tt1=System.currentTimeMillis();
-            ResponseList<Product> matong=productService.list(1,6,null,"智能马桶");
-            ResponseList<Product> matonggai=productService.list(1,6,null,"智能马桶盖");
-            model.addAttribute("matong",matong);
-            model.addAttribute("matonggai",matonggai);
-            logger.info("product:"+(System.currentTimeMillis()-tt1));
+        CompletableFuture<Void> voidCompletableFuture1 = runnableExecutor(() -> {
+            long tt1 = System.currentTimeMillis();
+            ResponseList<Product> matong = productService.list(1, 6, null, "门窗");
+            ResponseList<Product> matonggai = productService.list(1, 6, null, "门窗");
+            model.addAttribute("matong", matong);
+            model.addAttribute("matonggai", matonggai);
+            logger.info("product:" + (System.currentTimeMillis() - tt1));
         });
-        Thread t4=new Thread(()->{
-            long tt1=System.currentTimeMillis();
-            ResponseList<FunctionClass> functionClass=functionClassService.listFunction(1,10,1);
-            List<FunctionClass> functionClassList=functionClass.getResult();
+        CompletableFuture<Void> voidCompletableFuture2 = runnableExecutor(() -> {
+            long tt1 = System.currentTimeMillis();
+            ResponseList<FunctionClass> functionClass = functionClassService.listFunction(1, 4, 1);
+            List<FunctionClass> functionClassList = functionClass.getResult();
             List<functionClassDTO> functionClassDTOS = new ArrayList<>();
             functionClassList.forEach(v -> {
                 functionClassDTO functionClassDTO = new functionClassDTO();
-                BeanUtils.copyProperties(v,functionClassDTO,"list");
-                functionClassDTO.setList(productService.getByFunctionId(v.getId(),6));
+                BeanUtils.copyProperties(v, functionClassDTO, "list");
+                functionClassDTO.setList(productService.getByFunctionId(v.getId(), 6));
                 functionClassDTOS.add(functionClassDTO);
             });
-            model.addAttribute("functionClassDTOS",functionClassDTOS);
-            logger.info("function:"+(System.currentTimeMillis()-tt1));
+            model.addAttribute("functionClassDTOS", functionClassDTOS);
+            logger.info("function:" + (System.currentTimeMillis() - tt1));
         });
-        Thread t5=new Thread(()->{
-            long tt1=System.currentTimeMillis();
-            model.addAttribute("navindex",navigationService.selectById(1));
-            model.addAttribute("navMatong",navigationService.selectById(2));
-            model.addAttribute("navMatonggai",navigationService.selectById(3));
-            model.addAttribute("navFunction",navigationService.selectById(4));
-            model.addAttribute("navNews",navigationService.selectById(5));
-            model.addAttribute("navAboutme",navigationService.selectById(6));
-            model.addAttribute("navMessage",navigationService.selectById(7));
-            model.addAttribute("navApp",navigationService.selectById(8));
-            logger.info("nav:"+(System.currentTimeMillis()-tt1));
+        CompletableFuture<Void> voidCompletableFuture3 = runnableExecutor(() -> {
+            long tt1 = System.currentTimeMillis();
+            model.addAttribute("navindex", navigationService.selectById(1));
+            model.addAttribute("navMatong", navigationService.selectById(2));
+            model.addAttribute("navMatonggai", navigationService.selectById(3));
+            model.addAttribute("navFunction", navigationService.selectById(4));
+            model.addAttribute("navNews", navigationService.selectById(5));
+            model.addAttribute("navAboutme", navigationService.selectById(6));
+            model.addAttribute("navMessage", navigationService.selectById(7));
+            model.addAttribute("navApp", navigationService.selectById(8));
+            logger.info("nav:" + (System.currentTimeMillis() - tt1));
         });
-        t1.start();
-        t2.start();
-        t3.start();
-        t4.start();
-        t5.start();
-        t4.join();
-        t5.join();
-        t3.join();
-        t1.join();
-        t2.join();
-        logger.info("alltime："+(System.currentTimeMillis()-start));
+        try {
+            CompletableFuture.allOf(voidCompletableFuture,voidCompletableFuture1,voidCompletableFuture2,voidCompletableFuture3,hotword).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
         return "showPage/headpage/webmap";
     }
 
@@ -505,47 +503,17 @@ public class HomeController {
     }
 
     private void headAndFooter(Model model){
-        Thread t1 = new Thread(()->{
-            List<Navigation> navVOS = navigationService.showAllNav();
-            model.addAttribute("navList",navVOS);
-        });
-        Thread t2 = new Thread(()->{
-            //联系方式
-            CompanyInfo companyDetail = companyInfoService.getCompanyDetail();
-            model.addAttribute("linkUs",userService.show(companyDetail.getLinkManId()));
-        });
-        Thread t3 = new Thread(()->{
-            //店铺
-           List<Maison> list =  maisonService.selectList(new EntityWrapper<>());
-           model.addAttribute("shop",list);
-        });
-        Thread t4 = new Thread(()->{
-            //热搜词
-            List<HotWord> list=hotWordService.getHot(6);
-            model.addAttribute("hotWords",list);
-        });
-        Thread t5 = new Thread(()->{
-            //询盘信息
-            int count = messageService.getNewMessage();
-            model.addAttribute("messageCount", count);
-        });
-        Thread t6 = new Thread(()->{
-            model.addAttribute("appImg",appService.showApp());
-        });
-        t1.start();
-        t2.start();
-        t3.start();
-        t4.start();
-        t5.start();
-        t6.start();
+        CompletableFuture<Void> voidCompletableFutureNavList = getVoidCompletableFutureNavList(model);
+        CompletableFuture<Void> voidCompletableFuture1 = getVoidCompletableFuture1(model);
+        CompletableFuture<Void> voidCompletableFutureShop = getVoidCompletableFutureShop(model);
+        CompletableFuture<Void> voidCompletableFuture = getVoidCompletableFuture(model);
+        CompletableFuture<Void> voidCompletableFutureMessage = getVoidCompletableFutureMessage(model);
+        CompletableFuture<Void> voidCompletableFutureAppImg = getVoidCompletableFutureAppImg(model);
         try {
-            t1.join();
-            t2.join();
-            t3.join();
-            t4.join();
-            t5.join();
-            t6.join();
+            CompletableFuture.allOf(voidCompletableFuture,voidCompletableFuture1,voidCompletableFutureNavList,voidCompletableFutureShop,voidCompletableFutureMessage,voidCompletableFutureAppImg).get();
         } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
     }
@@ -585,6 +553,86 @@ public class HomeController {
             }
         }
     }
+    private CompletableFuture<Void> runnableExecutor(Runnable runnable){
+        return CompletableFuture.runAsync(runnable, taskExecutor);
+    };
+
+
+    private CompletableFuture<Void> getVoidCompletableFutureFunction(Model model, Integer functionClassId) {
+        return CompletableFuture.runAsync(() -> {
+            FunctionClass functionClass = functionClassService.showFunction(functionClassId);
+            model.addAttribute("functionClass", functionClass);//选中的功能
+        }, taskExecutor);
+    }
+
+    private CompletableFuture<Void> getVoidCompletableFutureResponse(Model model, Integer functionClassId) {
+        return CompletableFuture.runAsync(() -> {
+            ResponseList<Product> responseList = productService.listByFunction(1, 9, "", functionClassId);
+            model.addAttribute("responseList", responseList);//该功能的产品
+        }, taskExecutor);
+    }
+
+    private CompletableFuture<Void> getVoidCompletableFutureFunction(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            ResponseList<FunctionClass> response = functionClassService.listFunction(1, 4, 0);
+            model.addAttribute("functionClassList", response);//功能列表
+        }, taskExecutor);
+    }
+    private CompletableFuture<Void> getVoidCompletableFutureNavList(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            List<Navigation> navVOS = navigationService.showAllNav();
+            model.addAttribute("navList", navVOS);
+        }, taskExecutor);
+    }
+
+    private CompletableFuture<Void> getVoidCompletableFutureAppImg(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            model.addAttribute("appImg", appService.showApp());
+        }, taskExecutor);
+    }
+
+    private CompletableFuture<Void> getVoidCompletableFutureShop(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            //店铺
+            List<Maison> list = maisonService.selectList(new EntityWrapper<>());
+            model.addAttribute("shop", list);
+        }, taskExecutor);
+    }
+
+
+    private CompletableFuture<Void> getVoidCompletableFutureMessage(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            //询盘信息
+            int count = messageService.getNewMessage();
+            model.addAttribute("messageCount", count);
+        }, taskExecutor);
+    }
+
+    private CompletableFuture<Void> getVoidCompletableFuture2(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            //最新资讯
+            long s1 = System.currentTimeMillis();
+            model.addAttribute("news", newsService.leftNews());
+            logger.info("left:" + (System.currentTimeMillis() - s1));
+        }, taskExecutor);
+    }
+
+    private CompletableFuture<Void> getVoidCompletableFuture1(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            //联系方式
+            CompanyInfo companyDetail = companyInfoService.getCompanyDetail();
+            model.addAttribute("linkUs", userService.show(companyDetail.getLinkManId()));
+        }, taskExecutor);
+    }
+
+    private CompletableFuture<Void> getVoidCompletableFuture(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            //热搜词
+            List<HotWord> list = hotWordService.getHot(6);
+            model.addAttribute("hotWords", list);
+        }, taskExecutor);
+    }
+
 
 
 }

@@ -10,9 +10,10 @@
         setTimeout(hideURLbar, 0);
     }, false);
 
-    function hideURLbar() {
-        window.scrollTo(0, 1);
-    } </script>
+    // function hideURLbar() {
+    //     window.scrollTo(0, 1);
+    // }
+    </script>
     <!-- bootstrap-css -->
     <link href="${ctxPath}/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
     <!--// bootstrap-css -->
@@ -44,7 +45,7 @@
 </head>
 <body>
 <!--banner-->
-@include("../_header.html",{current:'功能分类'}){}
+@include("../_header.html",{current:'经典案例'}){}
 <div class="banner-top visible-lg-block visible-md-block"
      style="background: url(${functionClass.icon}) no-repeat 0 0;background-size: cover ;height: 570px">
 </div>
@@ -60,7 +61,7 @@
             <div id="function" style="z-index: 999;width: 200px;opacity: 0.8">
                 <div style="background-color:#f8f8f8;color: #3a3a3a;">
                     <div style="font-weight: 400;font-size: 18px; text-align:center;line-height:35px;background-color: #50c9a0;">
-                        <span style="color: white">功能分类</span>
+                        <span style="color: white">经典案例</span>
                     </div>
                     <div style="width: 100%;text-align: center;font-size: 16px">
                         @for(function in functionClassList.result){
@@ -107,7 +108,7 @@
                         </li>
                         <li style="display: inline-block;">
                             <a href="/functionClass.html"
-                               style="color: #464646; text-decoration: none;font-family: 'Roboto', sans-serif;">功能分类</a>
+                               style="color: #464646; text-decoration: none;font-family: 'Roboto', sans-serif;">经典案例</a>
                             <span style="color:#464646 "> &nbsp>>&nbsp </span>
                         </li>
                         <li style="display: inline-block;color: #464646;font-family: 'Open Sans', sans-serif;letter-spacing: 1px">
@@ -143,7 +144,7 @@
             <!--mobile-->
             <div class="visible-xs-block visible-sm-block" style="margin-top: 20px">
                 <span class="mobile-title1">${functionClass.englishName}</span>
-                <span class="mobile-title2">不止于方便&ensp;可以体验的智能马桶盖</span>
+                <span class="mobile-title2">不止于方便&ensp;门窗</span>
             </div>
             <div id="productContent2" class="visible-xs-block visible-sm-block">
                 @for(item in @responseList.getResult()){

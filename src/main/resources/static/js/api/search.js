@@ -9,7 +9,7 @@ $(function () {
         navScroll(b);
     });
     function navScroll(bottom) {
-        if (sc.scrollTop() >= 500) {
+        if (sc.scrollTop() >= 300) {
             left.addClass("left_nav_class");
             if (win.width < 768) {
                 left.animate({display: 'none'}, 0)

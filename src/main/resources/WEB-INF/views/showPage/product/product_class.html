@@ -11,9 +11,10 @@
         setTimeout(hideURLbar, 0);
     }, false);
 
-    function hideURLbar() {
-        window.scrollTo(0, 1);
-    } </script>
+    // function hideURLbar() {
+    //     window.scrollTo(0, 1);
+    // }
+    </script>
     <!-- bootstrap-css -->
     <link href="${ctxPath}/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
     <!--// bootstrap-css -->
@@ -46,7 +47,30 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <![endif]-->
+    <style>
+        .p-box{
+            margin-top: 20px;
+            display: flex;
+            width: 100%;
+            padding-left: 0;
+            font-size: 15px;
+            list-style-type: none;
+        }
+        .p-box li{
+            font-size: 20px;
+            margin-left: 10px;
+            color: black;
+        }
+        .p-box li a{
+            color: black;
+            font-weight: 500;
+        }
+        .p-box-active{
+            border-bottom: 3px solid red;;
+        }
+    </style>
 </head>
+
 <body>
 <!--banner-->
 @include("../_header.html",{current:className}){}
@@ -138,11 +162,34 @@
             <div class="col-md-12 visible-lg-block visible-md-block" style="text-align: center;">
                 <ul id="pageLimit"></ul>
             </div>
-            <!--mobile-->
+
+
+
+
+
             <div class="visible-xs-block visible-sm-block" style="margin-top: 20px">
+                <ul id=""  class="p-box">
+                    @for(class in classList){
+                    @if(classLP.last){
+                    <li  class="p-box-active"><a class="a_classname"
+                                                 href="/product/list/${class.id}.html"
+                                                 style="color:#3f3f3f;font-weight: 500">${class.name}</a>
+                    </li>
+                    @}else{
+                    <li  class="p-box-active"><a class="a_classname"
+                                                 href="/product/list/${class.id}.html"
+                                                 style="color:#3f3f3f;font-weight: 500">${class.name}</a>
+                    </li>
+
+                    @}
+                    @}
+                </ul>
                 <span class="mobile-title1">APP一站式检测身体健康指标</span>
                 <span class="mobile-title2">不止于方便&ensp;可以体验的${className}</span>
+                <!--mobile-->
+
             </div>
+
             <div id="productContent2" class="visible-xs-block visible-sm-block">
                 @for(item in @responseList.getResult()){
                 <div class="mobile-product-div">
@@ -284,12 +331,12 @@
             var t2 = document.documentElement.scrollHeight;
             var t1 = document.documentElement.scrollTop ;
             var b = t2-t1;
-            console.log("距离底部距离："+ b);
+            console.log("距离底部距离1product："+ b);
             navScroll(b);
         });
 
         function navScroll(bottom) {
-            if (sc.scrollTop() >= 500) {
+            if (sc.scrollTop() >= 300) {
                 if(bottom<1050){
                     left.addClass("left_relative");
                     left.removeClass("left_nav_class");
@@ -331,5 +378,6 @@
 <!-- FlexSlider -->
 <script defer src="${ctxPath}/static/js/jquery.flexslider.js"></script>
 <!-- //FlexSlider -->
+
 </body>
 </html>

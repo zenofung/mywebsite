@@ -11,7 +11,7 @@
     @}
     ">
     <link rel="icon" type="image/x-icon" href="${ctxPath}/static/faviconTitle.ico"/>
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>-->
     <!-- bootstrap-css -->
     <link href="${ctxPath}/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <!--// bootstrap-css -->
@@ -50,7 +50,7 @@
     @include("../_header.html",{current:className}){}
     <div class="banner-top visible-lg-block visible-md-block"  style="height: 570px;background: url(${productClass.pic}) no-repeat 0 0;background-size: cover ">
     </div>
-    @if(className=='智能马桶'){
+    @if(className=='门窗'){
     <div class="banner-top visible-xs-block visible-sm-block"  style="height: 300px;background: url('/static/images/mobile/matong/banner.jpg') no-repeat 0 ;background-size: cover ">
     </div>
     @}else{
@@ -65,7 +65,7 @@
                 <div id="detail" style="z-index: 999;width: 200px;opacity: 0.8">
                     <div style="background-color:#f8f8f8;color: #3a3a3a;">
                         <div style="font-weight: 400;font-size: 18px; text-align:center;line-height:35px;background-color: #50c9a0;">
-                            <span style="color: white">功能分类</span>
+                            <span style="color: white">经典案例</span>
                         </div>
                         <div style="width: 100%;text-align: center;font-size: 16px">
                             @for(class in classList){
@@ -133,7 +133,7 @@
                     <img src="${product.longPic}"  alt="${product.productName}详细图解" style="width: 100%;height: auto">
                 </div>
                 <hr />
-                <div ><span style="color: #939393;font-weight: 300">本文网址</span> &nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="https://www.gongyitech.com/product/detail/${product.id}.html"><span style="color:#50c9a0;display: inline-block;width: 70%;vertical-align: top">https://www.gongyitech.com/product/detail/${product.id}.html</span></a></div>
+                <div ><span style="color: #939393;font-weight: 300">本文网址</span> &nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="https://www.huochimc.com/product/detail/${product.id}.html"><span style="color:#50c9a0;display: inline-block;width: 70%;vertical-align: top">https://www.huochimc.com/product/detail/${product.id}.html</span></a></div>
                 <hr style="background-color: #d8d8d8 " />
                 <div style="color: #bbbbbb"><span style="color: #939393;font-weight: 300">关键词</span>&ensp;&ensp;&ensp;&ensp;
                     <span style="display: inline-block;width: 70%;vertical-align: top">
@@ -175,7 +175,7 @@
         <div class="container">
             <div style="margin-top: 60px">
                 <span class="mobile-title1">产品详情</span>
-                <span class="mobile-title2">不止于方便&ensp;可以体验的智能马桶盖</span>
+                <span class="mobile-title2">不止于方便</span>
             </div>
             <div style="margin-top: 20px">
                 <span style="font-size: 15px">${product.detail}</span>
@@ -197,7 +197,7 @@
                 <img src="${product.longPic}"  alt="${product.productName}详细图解" style="width: 100%;height: auto">
             </div>
             <hr />
-            <div ><span style="color: #939393;font-weight: 300">本文网址</span> &nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="https://www.gongyitech.com/product/detail/${product.id}"><span style="color:#50c9a0;display: inline-block;width: 70%;vertical-align: top">https://www.gongyitech.com/product/detail/${product.id}</span></a></div>
+            <div ><span style="color: #939393;font-weight: 300">本文网址</span> &nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="https://www.huochimc.com/product/detail/${product.id}"><span style="color:#50c9a0;display: inline-block;width: 70%;vertical-align: top">https://www.huochimc.com/product/detail/${product.id}</span></a></div>
             <hr style="background-color: #d8d8d8 " />
             <div style="color: #bbbbbb"><span style="color: #939393;font-weight: 300">关键词</span>&ensp;&ensp;&ensp;&ensp;
                 <span style="display: inline-block;width: 70%;vertical-align: top">

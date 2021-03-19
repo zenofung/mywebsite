@@ -84,6 +84,7 @@ public class ShiroConfig {
                 "/rss.xml," +
                 "/sitemap.xml," +
                 "/getToken," +
+                "/api/uplodeImage," +
                 "/robots.txt," +
                 "/patentList," +
                 "/yjv0lnjjCD.txt,"+

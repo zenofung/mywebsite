@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 
 @Controller
 public class NewsInfoController {
@@ -41,6 +44,8 @@ public class NewsInfoController {
     AppService appService;
     @Autowired
     MaisonService maisonService;
+    @Autowired
+    Executor taskExecutor;
 
     //新闻资讯相关接口 ---- start
 
@@ -50,12 +55,14 @@ public class NewsInfoController {
         setLeftMode(model);
         long start = System.currentTimeMillis();
         int classId = newsService.show(Integer.parseInt(newsId)).getNewsClassId();
-        Thread t1 = new Thread(() -> {
+
+        CompletableFuture<Void> newsClass = runnableExecutor(() -> {
             //新闻分类
             model.addAttribute("newsClass", newsClassService.list());
-            logger.info("新闻分类："+(System.currentTimeMillis()-start));
+            logger.info("新闻分类：" + (System.currentTimeMillis() - start));
         });
-        Thread t3 = new Thread(() -> {
+
+        CompletableFuture<Void> voidCompletableFuture = runnableExecutor(() -> {
             //上一条下一条
             News newd = newsService.selectNewsById(Integer.parseInt(newsId));
             News news = newsService.getPreNews(newd);
@@ -65,7 +72,8 @@ public class NewsInfoController {
             long end = System.currentTimeMillis();
             logger.info("上一条下一条消耗时间:" + (end - start));
         });
-        Thread t4 = new Thread(() -> {
+
+        CompletableFuture<Void> voidCompletableFuture1 = runnableExecutor(() -> {
             //相关新闻
             NewsVO newsVO = newsService.show(Integer.parseInt(newsId));
             String[] keyowrds = newsVO.getKeywords();
@@ -105,32 +113,31 @@ public class NewsInfoController {
             long end = System.currentTimeMillis();
             logger.info("相关新闻消耗时间:" + (end - start));
         });
-        Thread t5 = new Thread(() -> {
+
+        CompletableFuture<Void> newClassDetail = runnableExecutor(() -> {
             //显示所在位置中新闻的所属类别
             model.addAttribute("newClassDetail", newsClassService.show(classId));
             long end = System.currentTimeMillis();
             logger.info("显示所属类别消耗时间:" + (end - start));
         });
-        Thread t6 = new Thread(() -> {
+        CompletableFuture<Void> aNew = runnableExecutor(() -> {
             //新闻详情
             model.addAttribute("new", newsService.show(Integer.parseInt(newsId)));
             long end = System.currentTimeMillis();
             logger.info("详情消耗时间:" + (end - start));
         });
-        t1.start();
-        t3.start();
-        t4.start();
-        t5.start();
-        t6.start();
-        t1.join();
-        t3.join();
-        t4.join();
-        t5.join();
-        t6.join();
-        long end = System.currentTimeMillis();
-        logger.info("新闻详情消耗时间:" + (end - start));
+        try {
+            CompletableFuture.allOf(aNew,newClassDetail,newsClass,voidCompletableFuture,voidCompletableFuture1).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
         return "showPage/news/news_detail";
     }
+
+    private CompletableFuture<Void> runnableExecutor(Runnable runnable){
+        return CompletableFuture.runAsync(runnable, taskExecutor);
+    };
 
 //    //新闻列表分页ajax访问
 //    @RequestMapping(value = "/newsList")
@@ -233,66 +240,77 @@ public class NewsInfoController {
     //新闻列表相关接口 ---- end
 
     private void setLeftMode(Model model) {
-        Thread t1 = new Thread(() -> {
-            long s1 = System.currentTimeMillis();
+        CompletableFuture<Void> voidCompletableFutureNavList = getVoidCompletableFutureNavList(model);
+        CompletableFuture<Void> voidCompletableFuture1 = getVoidCompletableFuture1(model);
+        CompletableFuture<Void> voidCompletableFuture2 = getVoidCompletableFuture2(model);
+
+        CompletableFuture<Void> voidCompletableFuture = getVoidCompletableFuture(model);
+        CompletableFuture<Void> voidCompletableFutureMessage = getVoidCompletableFutureMessage(model);
+        CompletableFuture<Void> voidCompletableFutureAppImg = getVoidCompletableFutureAppImg(model);
+        CompletableFuture<Void> voidCompletableFutureShop = getVoidCompletableFutureShop(model);
+        try {
+            CompletableFuture.allOf(voidCompletableFutureNavList,voidCompletableFuture1,voidCompletableFuture2,voidCompletableFuture,voidCompletableFutureMessage,voidCompletableFutureAppImg
+            ,voidCompletableFutureShop).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+    }
+    private CompletableFuture<Void> getVoidCompletableFutureNavList(Model model) {
+        return CompletableFuture.runAsync(() -> {
             List<Navigation> navVOS = navigationService.showAllNav();
             model.addAttribute("navList", navVOS);
-            logger.info("导航栏加载:" + (System.currentTimeMillis() - s1));
-        });
-        Thread t2 = new Thread(() -> {
-            //联系方式
-            long s1 = System.currentTimeMillis();
-            CompanyInfo companyDetail = companyInfoService.getCompanyDetail();
-            model.addAttribute("linkUs", userService.show(companyDetail.getLinkManId()));
-            logger.info("联系方式:" + (System.currentTimeMillis() - s1));
-        });
-        Thread t3 = new Thread(() -> {
-            //最新资讯
-            long s1 = System.currentTimeMillis();
-            model.addAttribute("news", newsService.leftNews());
-            logger.info("最新资讯:" + (System.currentTimeMillis() - s1));
-        });
-        Thread t4 = new Thread(() -> {
-            //热搜词
-            long s1 = System.currentTimeMillis();
-            //热搜词
-            List<HotWord> list=hotWordService.getHot(6);
-            model.addAttribute("hotWords",list);
-            logger.info("热搜词:" + (System.currentTimeMillis() - s1));
-        });
-        Thread t5 = new Thread(() -> {
+        }, taskExecutor);
+    }
+
+    private CompletableFuture<Void> getVoidCompletableFutureAppImg(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            model.addAttribute("appImg", appService.showApp());
+        }, taskExecutor);
+    }
+
+    private CompletableFuture<Void> getVoidCompletableFutureShop(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            //店铺
+            List<Maison> list = maisonService.selectList(new EntityWrapper<>());
+            model.addAttribute("shop", list);
+        }, taskExecutor);
+    }
+
+
+    private CompletableFuture<Void> getVoidCompletableFutureMessage(Model model) {
+        return CompletableFuture.runAsync(() -> {
             //询盘信息
             int count = messageService.getNewMessage();
             model.addAttribute("messageCount", count);
-        });
-        Thread t6 = new Thread(() -> {
-            model.addAttribute("appImg", appService.showApp());
-        });
-        Thread t7 = new Thread(()->{
-            //店铺
-            long s1 = System.currentTimeMillis();
-            List<Maison> list =  maisonService.selectList(new EntityWrapper<>());
-            model.addAttribute("shop",list);
-            logger.info("店铺:" + (System.currentTimeMillis() - s1));
-        });
-        t1.start();
-        t2.start();
-        t3.start();
-        t4.start();
-        t5.start();
-        t6.start();
-        t7.start();
-        try {
-            t1.join();
-            t2.join();
-            t3.join();
-            t4.join();
-            t5.join();
-            t6.join();
-            t7.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        long end = System.currentTimeMillis();
+        }, taskExecutor);
     }
+
+    private CompletableFuture<Void> getVoidCompletableFuture2(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            //最新资讯
+            long s1 = System.currentTimeMillis();
+            model.addAttribute("news", newsService.leftNews());
+            logger.info("left:" + (System.currentTimeMillis() - s1));
+        }, taskExecutor);
+    }
+
+    private CompletableFuture<Void> getVoidCompletableFuture1(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            //联系方式
+            CompanyInfo companyDetail = companyInfoService.getCompanyDetail();
+            model.addAttribute("linkUs", userService.show(companyDetail.getLinkManId()));
+        }, taskExecutor);
+    }
+
+    private CompletableFuture<Void> getVoidCompletableFuture(Model model) {
+        return CompletableFuture.runAsync(() -> {
+            //热搜词
+            List<HotWord> list = hotWordService.getHot(6);
+            model.addAttribute("hotWords", list);
+        }, taskExecutor);
+    }
+
 }

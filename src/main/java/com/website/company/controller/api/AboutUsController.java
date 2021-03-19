@@ -1,6 +1,7 @@
 package com.website.company.controller.api;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.website.company.Config.TaskPoolConfig;
 import com.website.company.entity.*;
 import com.website.company.service.*;
 import com.website.company.utils.ResponseList;
@@ -8,6 +9,7 @@ import com.website.company.utils.entityVO.PatentInfoVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 
 /**
  *  关于我们相关视图
@@ -43,6 +48,8 @@ public class AboutUsController {
     AppService appService;
     @Autowired
     MaisonService maisonService;
+    @Autowired
+    Executor taskExecutor;
 
     /**
      *  获取关于我们的界面
@@ -59,33 +66,32 @@ public class AboutUsController {
         model.addAttribute("title", navigation.getNavTitle());
         model.addAttribute("keywords", navigation.getNavKeywords());
         model.addAttribute("description", navigation.getNavDesc());
-        Thread t1 = new Thread(() -> {
+        CompletableFuture<Void> companyInfo1 = CompletableFuture.runAsync(() -> {
             CompanyInfo companyInfo = companyInfoService.getCompanyDetail();
             model.addAttribute("companyInfo", companyInfo);
-        });
-        Thread t2 = new Thread(() -> {
-            PatentInfoVO patentInfoVO = patentInfoService.getPatentInfo();
+        }, taskExecutor);
 
+        CompletableFuture<Void> patentInfo1 = CompletableFuture.runAsync(() -> {
+            PatentInfoVO patentInfoVO = patentInfoService.getPatentInfo();
             //证书信息
             model.addAttribute("patentInfo", patentInfoVO);
-        });
-        Thread t3 = new Thread(() -> {
+
+        }, taskExecutor);
+        CompletableFuture<Void> patentCount1 = CompletableFuture.runAsync(() -> {
             //证书遍历数
             model.addAttribute("patentCount", patentInfoService.PatentCount());
-        });
-        Thread t4 = new Thread(() -> {
+
+        }, taskExecutor);
+        CompletableFuture<Void> navMatong1 = CompletableFuture.runAsync(() -> {
             //智能马桶 马桶盖
             model.addAttribute("navMatong", navigationService.selectById(2));
             model.addAttribute("navMatonggai", navigationService.selectById(3));
-        });
-        t1.start();
-        t2.start();
-        t3.start();
-        t4.start();
-        t1.join();
-        t2.join();
-        t3.join();
-        t4.join();
+        }, taskExecutor);
+        try {
+            CompletableFuture.allOf(companyInfo1,patentCount1,patentInfo1,navMatong1).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         return "showPage/aboutme/aboutme";
     }
 
