@@ -176,7 +176,6 @@ public class HomeController {
     ModelAndView home(Model model, String area, HttpServletRequest request) throws InterruptedException{
         String requestURI = request.getRequestURI();
         Navigation navigation = navigationService.selectByUrl(requestURI);
-        long start = System.currentTimeMillis();
         headAndFooter(model);
         if(area!=null){
             String title = navigation.getDivName().replaceAll("<area>", area);
@@ -197,7 +196,6 @@ public class HomeController {
             model.addAttribute("bannerInfo", bannerInfos);
         });
         CompletableFuture<Void> products = runnableExecutor(() -> {
-            long s = System.currentTimeMillis();
             //产品展示
             List<Product> list = productMapper.getProductList();
             List<ProductDTO> productDTOList = new ArrayList<>();
@@ -213,25 +211,18 @@ public class HomeController {
                 i++;
             }
             model.addAttribute("products", productDTOList);
-            logger.info("product:" + (System.currentTimeMillis() - s));
         });
 
         CompletableFuture<Void> classList1 = runnableExecutor(() -> {
-            long s1 = System.currentTimeMillis();
             List<ProductClass> classList = productClassService.selectProductClassList();
             model.addAttribute("classList", classList);
-            long s2 = System.currentTimeMillis();
-            logger.info("class1:" + (s2 - s1));
         });
         CompletableFuture<Void> voidCompletableFuture1 = runnableExecutor(() -> {
-            long t1 = System.currentTimeMillis();
             NewsClassDTO newsClassDTO = new NewsClassDTO();
             NewsClass show = newsClassService.show(2);
             BeanUtils.copyProperties(show, newsClassDTO, "list");
             newsClassDTO.setList(newsMapper.getNewsList(show.getId()));
             model.addAttribute("news1", newsClassDTO);
-            long t2 = System.currentTimeMillis();
-            logger.info("news1:" + (t2 - t1));
         });
         CompletableFuture<Void> voidCompletableFuture2 = runnableExecutor(() -> {
             NewsClassDTO newsClassDTO = new NewsClassDTO();
@@ -264,8 +255,6 @@ public class HomeController {
             e.printStackTrace();
         }
 
-        long end2 = System.currentTimeMillis();
-        logger.info("消耗时间"+(end2-start));
         return  new ModelAndView("showPage/home/index");
     }
 
@@ -393,7 +382,7 @@ public class HomeController {
     }
 
     //爬虫协议
-    @GetMapping("/robots.txt")
+    @GetMapping("/  .txt")
     public void robotsTxt(HttpServletResponse response) throws IOException {
         Writer writer = response.getWriter();
         String lineSeparator = System.getProperty("line.separator", "\n");

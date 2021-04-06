@@ -32,7 +32,7 @@
     <select id="getProductList" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from product order by update_datetime desc limit 12
+        from product order by update_datetime desc limit 6
     </select>
 
 
