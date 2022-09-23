@@ -6,12 +6,11 @@
 
  **效果图** 
 
-![主页](https://images.gitee.com/uploads/images/2019/0423/090907_5a536a65_1654084.png "1.png")
 
-![主页](https://images.gitee.com/uploads/images/2019/0423/091018_2e31ac29_1654084.png "2.png")
+![主页](image.png)
 
 
-![智能马桶页面](https://images.gitee.com/uploads/images/2019/0423/091231_f9883fca_1654084.png "3.png")
+![产品展示](imageimage2.png)
 
 
 ![功能分类](https://images.gitee.com/uploads/images/2019/0423/091355_2a8cbc66_1654084.png "4.png")
