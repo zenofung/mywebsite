@@ -90,9 +90,7 @@
                                                                                        style="color: #3a3a3a">企业文化</a>
                         </div>
                         <hr style="margin:0 43% 0 43%;background-color: #50C9A0;height: 1px"/>
-                        <div style="width: 100%;font-size: 16px;line-height: 35px;"><a href="#patent"
-                                                                                       style="color: #3a3a3a">专利展示</a>
-                        </div>
+
                     </div>
                 </div>
                 @include("../container_left.html"){}
@@ -122,7 +120,12 @@
             <div style="padding: 50px;color: #727272">
                 <p>${companyInfo.description}
                 </p>
-            </div>
+                <img src="${ctxPath}/static/images/guanyu1.jpg" width="100%" height="100%">
+                <br>
+                <br>
+                <br>
+                <img src="${ctxPath}/static/images/guanyu2.png" width="100%" height="100%">
+            </div>  
         </div>
     </div>
 
@@ -217,55 +220,7 @@
     </div>
     <!--企业文化 end -->
 
-    <!--公司专利 -->
-    <div class="container" id="patent" style="height: 677px;background-color: #eeeeee">
-        <div class="col-md-3"></div>
-        <div class="col-md-9" style="height: 100%">
-            <div class="w3-about-us-div1">
-                <div class="w3-about-us-div2" style="height: 35px">
-                    <span style="margin: 0;font-size: 21px;color: #474747">专利展示</span>
-                </div>
-            </div>
-            <div class="w3-about-patentInfo">
-                <div id="info">
-                    <span id="title" style="font-size: 25px;color: #454545">${patentInfo.title}</span>
-                    <div style="font-size: 15px;color:#8c8c8c;margin-top: 15px">
-                        <span style="display: block">外观证书设计名称：<span
-                                id="patentName">${patentInfo.patentName}</span></span>
-                        <span style="display: block">专利号：<span id="patentCode">${patentInfo.patentCode}</span></span>
-                        <span style="display: block">申请日：<span id="applyDate">${patentInfo.applyDate}</span></span>
-                        <span style="display: block">专利权人：<span id="patentee">${patentInfo.patentee}</span></span>
-                    </div>
-                </div>
-                <div style="margin-top: 40px">
-                    <span id="prv" style="cursor:pointer;"><img src="${ctxPath}/static/images/pc/icon/上一页.png"></span>
-                    <span id="next" style="cursor:pointer;"><img src="${ctxPath}/static/images/pc/icon/下一页.png"></span>
-                </div>
-            </div>
-            <div class="w3-about-patent" style="overflow: hidden">
-                <ul id="ul" class="w3-about-patent-ui"
-                    style="float: left;list-style: none;margin-top:10%;overflow: hidden;white-space:nowrap;   ">
-                    @for(var i=0;i< 4;i++){
-                    @if(i==1){
-                    <li id="show" class="w3-about-patent-li" value="${patentInfo.id}">
-                        <div id="showimg" class="w3-about-li-div"
-                             style="width: 250px;height: 360px; box-shadow:darkgrey 3px 5px 10px;border: 1px solid transparent;background-color: transparent">
-                            <img id="patentPic" data-target="#patentModel" data-toggle="modal" src="${patentInfo.pic}"
-                                 alt="${patentInfo.patentName}" style="height: 100%;width: 100%;cursor: pointer">
-                        </div>
-                    </li>
-                    @}
-                    <li class="w3-about-patent-li">
-                        <div class="w3-about-li-div">
-                            <img src="${ctxPath}/static/images/pc/aboutUs/专利/${i}.png"
-                                 style="height: 100%;width: 100%;vertical-align: bottom">
-                        </div>
-                    </li>
-                    @}
-                </ul>
-            </div>
-        </div>
-    </div>
+
     <!--模态框-->
     <div class="modal fade" id="patentModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-content modal-dialog" style="width: 550px">
@@ -286,6 +241,12 @@
         <div style="margin-top: 15px">
             <p>${companyInfo.description}</p>
         </div>
+        </p>
+        <img src="${ctxPath}/static/images/guanyu1.jpg" width="100%" height="100%">
+        <br>
+        <br>
+        <br>
+        <img src="${ctxPath}/static/images/guanyu2.png" width="100%" height="100%">
     </div>
     <div class="container" style="margin-top: 20px">
         <div>
@@ -296,29 +257,6 @@
     </div>
 
 
-    <div class="container">
-        <div style="margin-top: 20px;">
-            <span class="mobile-title1">企业文化</span>
-            <span class="mobile-title2">门窗奥利给</span>
-        </div>
-        <div>
-<!--            <p>重庆恭逸科技有限公司是一家致力于健康智能卫浴用品研发、生产和销售的创新型科技公司；公司拥有教授、博士、高级管理人才和技术骨干为主的技术和管理团队;<br>-->
-<!--                在普通智能马桶盖的基础上，采用了高新传感器、电控制器、APP和云数据存储分析等技术；实现了用户入厕过程中对其身体健康指标进行监测，达到“差异化服务、健康监测”的目的。</p>-->
-        </div>
-
-        <div style="width: 100%;height: 276px;background: url('/static/images/mobile/aboutUs/技术专利.jpg')no-repeat;background-size: cover;margin-bottom: 20px">
-            <div style="padding:18px 60px 60px 35px">
-                <span class="mobile-title1">技术专利</span>
-                <span class="mobile-title2" style="color: white">26项国家国家专利  四十多项知识产权</span>
-                <div style="margin-top: 20px">
-                    <a class="mobile-leader-btn" style="margin-left: 0px" href="/patentList">
-                        <span class="mobile-btn-span">查看证书详情</span>
-                        <img class="mobile-btn-img" src="${ctxPath}/static/images/mobile/icon/箭头.png">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 @include("../_footer.html"){}
 <!-- //footer -->

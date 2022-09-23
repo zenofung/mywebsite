@@ -24,6 +24,9 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -87,7 +90,7 @@ public class ShiroConfig {
                 "/api/uplodeImage," +
                 "/robots.txt," +
                 "/patentList," +
-                "/yjv0lnjjCD.txt,"+
+                "/yjv0lnjjCD.txt," +
                 "/404", ",");
         for (String url : anonUrls) {
             filterChainDefinitionMap.put(url, "anon");
@@ -164,8 +167,28 @@ public class ShiroConfig {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         cookieRememberMeManager.setCookie(rememberMeCookie());
         // rememberMe cookie 加密的密钥
-        cookieRememberMeManager.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
+        cookieRememberMeManager.setCipherKey(generateNewKey());
         return cookieRememberMeManager;
+    }
+
+    /**
+     * 随机生成秘钥，参考org.apache.shiro.crypto.AbstractSymmetricCipherService#generateNewKey(int)
+     *
+     * @return
+     */
+    public byte[] generateNewKey() {
+        KeyGenerator kg;
+        try {
+            kg = KeyGenerator.getInstance("AES");
+        } catch (NoSuchAlgorithmException var5) {
+            String msg = "Unable to acquire AES algorithm.  This is required to function.";
+            throw new IllegalStateException(msg, var5);
+        }
+
+        kg.init(128);
+        SecretKey key = kg.generateKey();
+        byte[] encoded = key.getEncoded();
+        return encoded;
     }
 
     /**

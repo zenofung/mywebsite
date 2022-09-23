@@ -7,7 +7,7 @@ server:
 #配置图片路径
 image-url:
   huochi:
-    access-path: http://39.98.118.87/images/huochi/
+    access-path: http://#####/images/huochi/
     save-path: /home/images/huochi/
 
 spring:
@@ -16,11 +16,10 @@ spring:
     datasource:
       name: druidDataSource
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://39.98.118.87:3306/website?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=GMT%2B8&autoReconnect=true
-      username: root
-      password: huochi
-#      username: root
-#      password: 123456
+      url: jdbc:mysql://#####:3306/website?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=GMT%2B8&autoReconnect=true
+      username: #####
+      password: #####
+
       type: com.alibaba.druid.pool.DruidDataSource
       #   数据源其他配置
       initialSize: 5

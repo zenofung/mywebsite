@@ -8,18 +8,18 @@
 	<meta charset="utf-8">
 	<meta name="keywords" content="${keywords}" />
 	<meta name="description" content="${description}" />
-
 <!--	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>-->
 	<!-- bootstrap-css -->
 	<link href="${ctxPath}/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 	<!--// bootstrap-css -->
-	<link rel="icon" type="image/x-icon" href="${ctxPath}/static/faviconTitle.ico"/>
+	<link rel="icon" type="image/x-icon" href="${ctxPath}/static/images/hclogo.jpg"/>
 	<!-- css -->
 	<link rel="stylesheet" href="${ctxPath}/static/css/style.css" type="text/css" media="all" />
 	<!--// css -->
 	<!-- font-awesome icons -->
 	<!--<link href="${ctxPath}/static/css/font-awesome.css" rel="stylesheet">-->
-	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<!--	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">-->
+	<link href="${ctxPath}/static/css/font-awesome.css" rel="stylesheet">
 	<link href="${ctxPath}/static/css/zhyd.comment.css" rel="stylesheet">
 	<link href="${ctxPath}/static/css/zhyd.core.css" rel="stylesheet">
 	<!-- //font-awesome icons -->
@@ -36,6 +36,7 @@
 	<![endif]-->
 </head>
 <body>
+	<div style="display: none"><img src="/images/hclogo.jpg"></div>
 	@include("../_header.html",{current:'首页'}){}
 	<!-- banner -->
 	@include("_banner.html"){}
